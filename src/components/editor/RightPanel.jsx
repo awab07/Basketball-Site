@@ -34,7 +34,7 @@ function RightPanel({ design, actions, price, qty, onQtyChange, onAddToCart, add
   const layers = buildLayers(design, actions)
 
   return (
-    <div className="flex w-[300px] shrink-0 flex-col overflow-y-auto border-l border-white/[0.08] p-5">
+    <div className="order-4 flex w-full shrink-0 flex-col overflow-y-auto border-t border-white/[0.08] p-5 lg:order-none lg:w-[300px] lg:border-l lg:border-t-0">
       <h3 className="text-sm font-semibold text-white">Layers</h3>
       <ul className="mt-3 flex flex-col gap-1">
         {layers.map((layer) => (

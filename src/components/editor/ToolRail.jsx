@@ -90,14 +90,14 @@ const TOOLS = [
 
 function ToolRail({ active, onSelect }) {
   return (
-    <div className="flex w-[76px] shrink-0 flex-col gap-1 overflow-y-auto border-r border-white/[0.08] p-2.5">
+    <div className="order-2 flex w-full shrink-0 flex-row gap-1 overflow-x-auto border-b border-white/[0.08] p-2 lg:order-none lg:w-[76px] lg:flex-col lg:overflow-y-auto lg:border-b-0 lg:border-r lg:p-2.5">
       {TOOLS.map(({ id, label, Icon }) => (
         <button
           key={id}
           type="button"
           onClick={() => onSelect(id)}
           aria-pressed={active === id}
-          className={`flex flex-col items-center gap-1.5 rounded-xl px-2 py-3 text-[11px] font-medium transition-colors duration-150 ${
+          className={`flex shrink-0 flex-col items-center gap-1.5 rounded-xl px-3 py-3 text-[11px] font-medium transition-colors duration-150 ${
             active === id
               ? 'bg-[var(--accent)]/15 text-[var(--accent)]'
               : 'text-white/50 hover:bg-white/[0.06] hover:text-white'

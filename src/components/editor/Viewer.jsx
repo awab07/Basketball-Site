@@ -16,8 +16,8 @@ function Viewer({ design }) {
   const ballRef = useRef(null)
 
   return (
-    <div className="relative flex min-w-0 flex-1 flex-col items-center justify-center bg-black/20 p-6">
-      <div className="relative aspect-square w-full max-w-[560px]">
+    <div className="order-1 relative flex min-w-0 flex-none flex-col items-center justify-center bg-black/20 p-4 sm:p-6 lg:order-none lg:flex-1">
+      <div className="relative aspect-square w-full max-w-[360px] sm:max-w-[460px] lg:max-w-[560px]">
         <Suspense
           fallback={
             <BasketballPreview
