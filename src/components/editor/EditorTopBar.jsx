@@ -70,7 +70,7 @@ function EditorTopBar({ canUndo, canRedo, onUndo, onRedo, saveStatus, onSave, on
         <span className="ml-1 hidden text-xs text-white/40 sm:inline">{saveStatus}</span>
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center justify-end gap-1.5 sm:gap-2">
         <Button type="button" variant="outline" size="sm" onClick={onSave}>
           Save
         </Button>

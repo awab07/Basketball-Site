@@ -264,7 +264,7 @@ function TemplatesPanel({ actions, templates }) {
 
 function ToolPanel({ tool, design, actions, templates }) {
   return (
-    <div className="w-[280px] shrink-0 overflow-y-auto border-r border-white/[0.08] p-5">
+    <div className="order-3 w-full max-h-[50vh] shrink-0 overflow-y-auto border-b border-white/[0.08] p-5 lg:order-none lg:max-h-none lg:w-[280px] lg:border-b-0 lg:border-r">
       {tool === 'color' && <ColorPanel design={design} actions={actions} />}
       {tool === 'text' && <TextPanel design={design} actions={actions} />}
       {tool === 'logo' && <LogoPanel design={design} actions={actions} />}
