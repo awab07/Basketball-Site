@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useCart } from '../hooks/useCart'
 import { useHistoryState } from '../hooks/useHistoryState'
-import { computePrice, createDefaultDesign, TEMPLATES } from '../lib/editorConfig'
+import { computePrice, createDefaultDesign, describeDesign, TEMPLATES } from '../lib/editorConfig'
 import EditorTopBar from '../components/editor/EditorTopBar'
 import ToolRail from '../components/editor/ToolRail'
 import ToolPanel from '../components/editor/ToolPanel'
@@ -83,7 +83,19 @@ function DesignEditor() {
   const price = computePrice(design, qty)
 
   function handleAddToCart() {
-    addToCart(qty)
+    const { colorName, label, hasLogo, printSides } = describeDesign(design)
+    addToCart(
+      {
+        size: '7',
+        color: design.color,
+        colorName,
+        label,
+        hasLogo,
+        printSides,
+        unitPrice: price.unit,
+      },
+      qty,
+    )
     setAddedFlash(true)
     setTimeout(() => setAddedFlash(false), 1600)
   }

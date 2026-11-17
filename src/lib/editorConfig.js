@@ -78,6 +78,28 @@ export const TEMPLATES = [
   },
 ]
 
+export function describeColor(hex) {
+  const match = BALL_COLORS.find((c) => c.hex.toLowerCase() === hex?.toLowerCase())
+  return match ? match.name : 'Custom color'
+}
+
+export function describeDesign(design) {
+  const nameNumber = [
+    design.text?.visible && design.text.value.trim(),
+    design.number?.visible && design.number.value.trim(),
+  ]
+    .filter(Boolean)
+    .join(' ')
+  const hasLogo = Boolean(design.logo?.visible && design.logo.dataUrl)
+
+  return {
+    colorName: describeColor(design.color),
+    label: nameNumber || 'Plain ball',
+    hasLogo,
+    printSides: hasLogo ? 'Front and back printed' : 'Front printed',
+  }
+}
+
 export function computePrice(design, qty = 1) {
   const lines = [{ label: 'Base ball', amount: PRICING.base }]
   if (design.text.visible && design.text.value.trim()) {
