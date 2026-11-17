@@ -130,12 +130,12 @@ function UtilityIcons() {
         </a>
       </Button>
       <Button asChild variant="ghost" size="icon" aria-label={`Cart, ${count} items`}>
-        <a href="#" className="relative">
+        <Link to="/cart" className="relative">
           <BagIcon />
           <span className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[var(--accent)] text-[9px] font-bold leading-none text-white">
             {count}
           </span>
-        </a>
+        </Link>
       </Button>
     </div>
   )
