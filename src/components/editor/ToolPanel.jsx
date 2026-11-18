@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { BALL_COLORS } from '../../lib/editorConfig'
-import { CLIPARTS, PATTERNS } from '../../lib/textures'
 import { Button } from '../ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 import { Input } from '../ui/input'
+import { Separator } from '../ui/separator'
 
 function ShowHideButton({ visible, onToggle }) {
   return (
@@ -12,10 +13,10 @@ function ShowHideButton({ visible, onToggle }) {
   )
 }
 
-function ColorInput({ value, onChange }) {
+function ColorInput({ value, onChange, label = 'Custom' }) {
   return (
     <label className="flex items-center gap-3 text-sm text-white/70">
-      Custom
+      {label}
       <input
         type="color"
         value={value}
@@ -48,7 +49,7 @@ function ColorPanel({ design, actions }) {
           />
         ))}
       </div>
-      <ColorInput value={design.color} onChange={actions.setColor} />
+      <ColorInput value={design.color} onChange={actions.setColor} label="Custom color" />
     </div>
   )
 }
@@ -68,28 +69,7 @@ function TextPanel({ design, actions }) {
         onBlur={actions.commitTextEdit}
       />
       <p className="-mt-2 text-xs text-white/40">{design.text.value.length} / 16 characters</p>
-      <ColorInput value={design.text.color} onChange={actions.setTextColor} />
-    </div>
-  )
-}
-
-function NumberPanel({ design, actions }) {
-  return (
-    <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-white">Number</h3>
-        <ShowHideButton visible={design.number.visible} onToggle={actions.toggleNumberVisible} />
-      </div>
-      <Input
-        value={design.number.value}
-        maxLength={2}
-        inputMode="numeric"
-        placeholder="e.g. 23"
-        onChange={(e) => actions.setNumberValue(e.target.value.replace(/[^0-9]/g, ''))}
-        onBlur={actions.commitTextEdit}
-      />
-      <p className="-mt-2 text-xs text-white/40">Prints on the back panel</p>
-      <ColorInput value={design.number.color} onChange={actions.setNumberColor} />
+      <ColorInput value={design.text.color} onChange={actions.setTextColor} label="Text color" />
     </div>
   )
 }
@@ -156,123 +136,21 @@ function LogoPanel({ design, actions }) {
   )
 }
 
-function ClipartPanel({ design, actions }) {
+function ToolPanel({ design, actions }) {
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-white">Clipart</h3>
-        <ShowHideButton visible={design.clipart.visible} onToggle={actions.toggleClipartVisible} />
-      </div>
-      <div className="grid grid-cols-2 gap-2">
-        <button
-          type="button"
-          onClick={() => actions.setClipartId(null)}
-          aria-pressed={!design.clipart.id}
-          className={`rounded-xl border px-3 py-2.5 text-xs font-medium transition-colors ${
-            !design.clipart.id
-              ? 'border-[var(--accent)] text-[var(--accent)]'
-              : 'border-white/10 text-white/60 hover:border-white/25'
-          }`}
-        >
-          None
-        </button>
-        {CLIPARTS.map((c) => (
-          <button
-            key={c.id}
-            type="button"
-            onClick={() => actions.setClipartId(c.id)}
-            aria-pressed={design.clipart.id === c.id}
-            className={`rounded-xl border px-3 py-2.5 text-xs font-medium transition-colors ${
-              design.clipart.id === c.id
-                ? 'border-[var(--accent)] text-[var(--accent)]'
-                : 'border-white/10 text-white/60 hover:border-white/25'
-            }`}
-          >
-            {c.label}
-          </button>
-        ))}
-      </div>
-      <ColorInput value={design.clipart.color} onChange={actions.setClipartColor} />
-    </div>
-  )
-}
-
-function PatternSwatch({ pattern, color }) {
-  const style = { backgroundColor: color }
-  if (pattern === 'pinstripe') {
-    style.backgroundImage = 'repeating-linear-gradient(45deg, rgba(0,0,0,0.35) 0 2px, transparent 2px 8px)'
-  } else if (pattern === 'dots') {
-    style.backgroundImage = 'radial-gradient(rgba(0,0,0,0.35) 1.5px, transparent 1.5px)'
-    style.backgroundSize = '7px 7px'
-  } else if (pattern === 'splatter') {
-    style.backgroundImage =
-      'radial-gradient(rgba(255,255,255,0.3) 2px, transparent 2px), radial-gradient(rgba(0,0,0,0.3) 2px, transparent 2px)'
-    style.backgroundSize = '9px 9px, 13px 13px'
-    style.backgroundPosition = '0 0, 5px 6px'
-  }
-  return <span aria-hidden className="h-6 w-6 shrink-0 rounded-full border border-white/20" style={style} />
-}
-
-function PatternPanel({ design, actions }) {
-  return (
-    <div className="flex flex-col gap-4">
-      <h3 className="text-sm font-semibold text-white">Pattern</h3>
-      <div className="grid grid-cols-2 gap-2">
-        {PATTERNS.map((p) => (
-          <button
-            key={p.id}
-            type="button"
-            onClick={() => actions.setPattern(p.id)}
-            aria-pressed={design.pattern === p.id}
-            className={`flex items-center gap-2 rounded-xl border px-3 py-2.5 text-xs font-medium transition-colors ${
-              design.pattern === p.id
-                ? 'border-[var(--accent)] text-[var(--accent)]'
-                : 'border-white/10 text-white/60 hover:border-white/25'
-            }`}
-          >
-            <PatternSwatch pattern={p.id} color={design.color} />
-            {p.label}
-          </button>
-        ))}
-      </div>
-      <p className="text-xs text-white/40">Swatches are a preview — the ball shows the real printed texture.</p>
-    </div>
-  )
-}
-
-function TemplatesPanel({ actions, templates }) {
-  return (
-    <div className="flex flex-col gap-4">
-      <h3 className="text-sm font-semibold text-white">Templates</h3>
-      <div className="grid grid-cols-2 gap-3">
-        {templates.map((t) => (
-          <button
-            key={t.id}
-            type="button"
-            onClick={() => actions.applyTemplate(t)}
-            className="flex flex-col items-center gap-2 rounded-xl border border-white/10 p-3 text-center transition-colors hover:border-white/25 hover:bg-white/[0.04]"
-          >
-            <span className="h-10 w-10 rounded-full border border-white/20" style={{ background: t.design.color }} />
-            <span className="text-xs font-medium text-white/80">{t.name}</span>
-          </button>
-        ))}
-      </div>
-      <p className="text-xs text-white/40">Applying a template replaces your current design.</p>
-    </div>
-  )
-}
-
-function ToolPanel({ tool, design, actions, templates }) {
-  return (
-    <div className="order-3 w-full max-h-[50vh] shrink-0 overflow-y-auto border-b border-white/[0.08] p-5 lg:order-none lg:max-h-none lg:w-[280px] lg:border-b-0 lg:border-r">
-      {tool === 'color' && <ColorPanel design={design} actions={actions} />}
-      {tool === 'text' && <TextPanel design={design} actions={actions} />}
-      {tool === 'logo' && <LogoPanel design={design} actions={actions} />}
-      {tool === 'number' && <NumberPanel design={design} actions={actions} />}
-      {tool === 'clipart' && <ClipartPanel design={design} actions={actions} />}
-      {tool === 'pattern' && <PatternPanel design={design} actions={actions} />}
-      {tool === 'templates' && <TemplatesPanel actions={actions} templates={templates} />}
-    </div>
+    <Card>
+      <CardHeader className="flex-col items-start gap-1">
+        <CardTitle>Customize</CardTitle>
+        <p className="text-sm font-normal normal-case tracking-normal text-white/50">Choose your options</p>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-6">
+        <ColorPanel design={design} actions={actions} />
+        <Separator />
+        <TextPanel design={design} actions={actions} />
+        <Separator />
+        <LogoPanel design={design} actions={actions} />
+      </CardContent>
+    </Card>
   )
 }
 

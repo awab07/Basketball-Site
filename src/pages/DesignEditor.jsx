@@ -2,9 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useCart } from '../hooks/useCart'
 import { useHistoryState } from '../hooks/useHistoryState'
-import { computePrice, createDefaultDesign, describeDesign, TEMPLATES } from '../lib/editorConfig'
+import { computePrice, createDefaultDesign, describeDesign } from '../lib/editorConfig'
 import EditorTopBar from '../components/editor/EditorTopBar'
-import ToolRail from '../components/editor/ToolRail'
 import ToolPanel from '../components/editor/ToolPanel'
 import Viewer from '../components/editor/Viewer'
 import RightPanel from '../components/editor/RightPanel'
@@ -32,7 +31,6 @@ function DesignEditor() {
   const { state: design, setState: setDesign, commit, undo, redo, canUndo, canRedo } = useHistoryState(() =>
     loadInitialDesign(searchParams.get('color')),
   )
-  const [activeTool, setActiveTool] = useState('color')
   const [qty, setQty] = useState(1)
   const [saveStatus, setSaveStatus] = useState('Autosaved')
   const [addedFlash, setAddedFlash] = useState(false)
@@ -55,28 +53,16 @@ function DesignEditor() {
 
   const actions = {
     setColor: (hex) => setDesign((d) => ({ ...d, color: hex })),
-    setPattern: (id) => setDesign((d) => ({ ...d, pattern: id })),
 
     setTextValue: (value) => setDesign((d) => ({ ...d, text: { ...d.text, value } }), { record: false }),
     setTextColor: (color) => setDesign((d) => ({ ...d, text: { ...d.text, color } })),
     toggleTextVisible: () => setDesign((d) => ({ ...d, text: { ...d.text, visible: !d.text.visible } })),
-
-    setNumberValue: (value) =>
-      setDesign((d) => ({ ...d, number: { ...d.number, value } }), { record: false }),
-    setNumberColor: (color) => setDesign((d) => ({ ...d, number: { ...d.number, color } })),
-    toggleNumberVisible: () => setDesign((d) => ({ ...d, number: { ...d.number, visible: !d.number.visible } })),
 
     setLogo: (dataUrl, fileName) =>
       setDesign((d) => ({ ...d, logo: { dataUrl, fileName, visible: true } })),
     clearLogo: () => setDesign((d) => ({ ...d, logo: { dataUrl: null, fileName: '', visible: true } })),
     toggleLogoVisible: () => setDesign((d) => ({ ...d, logo: { ...d.logo, visible: !d.logo.visible } })),
 
-    setClipartId: (id) => setDesign((d) => ({ ...d, clipart: { ...d.clipart, id, visible: true } })),
-    setClipartColor: (color) => setDesign((d) => ({ ...d, clipart: { ...d.clipart, color } })),
-    toggleClipartVisible: () =>
-      setDesign((d) => ({ ...d, clipart: { ...d.clipart, visible: !d.clipart.visible } })),
-
-    applyTemplate: (template) => setDesign(() => JSON.parse(JSON.stringify(template.design))),
     commitTextEdit: commit,
   }
 
@@ -135,22 +121,22 @@ function DesignEditor() {
         onQuickAdd={handleAddToCart}
       />
 
-      <div className="flex min-h-0 flex-1 flex-col overflow-y-auto lg:flex-row lg:overflow-hidden">
-        <ToolRail active={activeTool} onSelect={setActiveTool} />
+      <div className="min-h-0 flex-1 overflow-y-auto">
+        <div className="mx-auto grid max-w-[1400px] gap-6 p-4 sm:p-6 lg:grid-cols-[1fr_400px] lg:items-start">
+          <Viewer design={design} />
 
-        <ToolPanel tool={activeTool} design={design} actions={actions} templates={TEMPLATES} />
+          <div className="flex flex-col gap-6">
+            <ToolPanel design={design} actions={actions} />
 
-        <Viewer design={design} />
-
-        <RightPanel
-          design={design}
-          actions={actions}
-          price={price}
-          qty={qty}
-          onQtyChange={setQty}
-          onAddToCart={handleAddToCart}
-          addedFlash={addedFlash}
-        />
+            <RightPanel
+              price={price}
+              qty={qty}
+              onQtyChange={setQty}
+              onAddToCart={handleAddToCart}
+              addedFlash={addedFlash}
+            />
+          </div>
+        </div>
       </div>
     </div>
   )

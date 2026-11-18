@@ -24,7 +24,7 @@ function Lighting() {
   return (
     <>
       <ambientLight intensity={0.35} />
-      {/* broad soft key light for the rounded, studio-style specular highlight */}
+      
       <rectAreaLight
         position={[2.2, 2.6, 2.8]}
         rotation={[-0.4, 0.5, 0]}

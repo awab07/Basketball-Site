@@ -16,7 +16,8 @@ function Viewer({ design }) {
   const ballRef = useRef(null)
 
   return (
-    <div className="order-1 relative flex min-w-0 flex-none flex-col items-center justify-center bg-black/20 p-4 sm:p-6 lg:order-none lg:flex-1">
+    <div className="relative flex min-w-0 flex-col items-center justify-center rounded-[22px] border border-white/[0.08] bg-black/20 p-4 sm:p-6 lg:p-10">
+      <h3 className="mb-4 self-start text-sm font-semibold uppercase tracking-[2px] text-white/90">3D Preview</h3>
       <div className="relative aspect-square w-full max-w-[360px] sm:max-w-[460px] lg:max-w-[560px]">
         <Suspense
           fallback={
