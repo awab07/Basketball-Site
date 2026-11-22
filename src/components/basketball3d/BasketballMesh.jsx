@@ -58,15 +58,20 @@ function BasketballMesh({
     cloned.traverse((child) => {
       if (child.isMesh) {
         child.material = child.material.clone()
+        // Remember the model's own grain map so plain-colour balls can go back to it.
+        child.userData.baseMap = child.material.map
         child.castShadow = true
         child.receiveShadow = true
+        // The seam/print shell sits just above the panels; don't let it hide decals.
+        if (child.material.transparent) child.material.depthWrite = false
       }
     })
     return cloned
   }, [scene])
 
-  // The model ships as two meshes: the panel shell ("Basketball_0") and the
-  // seam grooves ("Basketball_1"), modeled as separate near-black geometry.
+  // The model ships as two meshes: the panel shell ("Basketball_0", pebble
+  // grain that takes the chosen colour) and a thin shell just above it
+  // ("Basketball_1") carrying the black channel seams and printing.
   // Only the panel shell should recolor — the seams stay black like a real ball's.
   //
   // Decal needs a ref-shaped `{ current: mesh }` handle to project against.
@@ -80,7 +85,7 @@ function BasketballMesh({
     if (!panelMesh) return undefined
     panelMesh.material.color.set(color)
     const texture = createPatternTexture(pattern, color)
-    panelMesh.material.map = texture
+    panelMesh.material.map = texture ?? panelMesh.userData.baseMap ?? null
     panelMesh.material.needsUpdate = true
     return () => texture?.dispose()
   }, [model, color, pattern])
@@ -120,7 +125,7 @@ function BasketballMesh({
       <primitive object={model} />
 
       {trimmedLabel && (
-        <BallStamp text={trimmedLabel.toUpperCase()} color={labelColor} azimuth={AZIMUTH.text} />
+        <PanelStamp text={trimmedLabel.toUpperCase()} color={labelColor} />
       )}
       {trimmedNumber && (
         <BallStamp text={trimmedNumber.toUpperCase()} color={numberColor} azimuth={AZIMUTH.number} />
@@ -147,6 +152,46 @@ function BasketballMesh({
         />
       )}
     </group>
+  )
+}
+
+// The name sits level across the open panel just above the printed badge
+// (between the curved seam and the top seam), facing the same way as the
+// badge. Placed by latitude/longitude on the ball and oriented with the
+// local east / north / outward axes so it lies flush and reads upright.
+const NAME_PANEL = { lat: THREE.MathUtils.degToRad(70), lon: -Math.PI / 2 }
+
+function PanelStamp({ text, color }) {
+  const { position, orientation } = useMemo(() => {
+    const { lat, lon } = NAME_PANEL
+    const normal = new THREE.Vector3(Math.cos(lat) * Math.sin(lon), Math.sin(lat), Math.cos(lat) * Math.cos(lon))
+    const east = new THREE.Vector3(Math.cos(lon), 0, -Math.sin(lon))
+    const north = new THREE.Vector3().crossVectors(normal, east)
+    const basis = new THREE.Matrix4().makeBasis(east, north, normal)
+    return {
+      position: normal.clone().multiplyScalar(MODEL_RADIUS + 0.005).toArray(),
+      orientation: new THREE.Quaternion().setFromRotationMatrix(basis),
+    }
+  }, [])
+
+  return (
+    <Text
+      font={STAMP_FONT_URL}
+      position={position}
+      quaternion={orientation}
+      curveRadius={-MODEL_RADIUS}
+      fontSize={0.2}
+      maxWidth={0.95}
+      lineHeight={1}
+      textAlign="center"
+      anchorX="center"
+      anchorY="middle"
+      letterSpacing={0.02}
+      color={color}
+    >
+      {text}
+      <meshStandardMaterial attach="material" roughness={0.7} metalness={0} />
+    </Text>
   )
 }
 
