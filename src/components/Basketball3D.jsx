@@ -1,10 +1,16 @@
 import { Canvas } from '@react-three/fiber'
 import { ContactShadows, OrbitControls } from '@react-three/drei'
-import { forwardRef, Suspense, useEffect, useImperativeHandle, useRef } from 'react'
+import { forwardRef, Suspense, useImperativeHandle, useRef } from 'react'
 import * as THREE from 'three'
 import { RectAreaLightUniformsLib } from 'three/examples/jsm/lights/RectAreaLightUniformsLib.js'
 import BasketballMesh from './basketball3d/BasketballMesh'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
+
+// Every mounted ball (hero, grid tiles, editor previews) creates its own
+// Canvas/Lighting, but this LTC lookup-table setup is global, one-time GPU
+// state — doing it again on every mount is pure waste. The module only
+// evaluates once, so this runs exactly once for the page's whole lifetime.
+RectAreaLightUniformsLib.init()
 
 // Camera sits at CAMERA_Z with FOV_DEG vertical field of view. Keeping the
 // ball's diameter comfortably smaller than the visible frustum height at
@@ -17,10 +23,6 @@ const MIN_DISTANCE = 2.2
 const MAX_DISTANCE = 5.2
 
 function Lighting() {
-  useEffect(() => {
-    RectAreaLightUniformsLib.init()
-  }, [])
-
   return (
     <>
       <ambientLight intensity={0.35} />
@@ -119,12 +121,22 @@ const Basketball3D = forwardRef(function Basketball3D(
 
   const meshSpin = !spin || reducedMotion ? 0 : interactive ? 0 : 0.35
 
+  // A still ball (no idle tumble, and no auto-rotating orbit) never changes
+  // on its own, so there's nothing to gain from rendering it 60 times a
+  // second forever — e.g. the design editor's preview, which sits interactive
+  // but non-rotating while someone types a name or picks a color. frameloop
+  // "demand" renders once and then only again when something actually
+  // changes (a prop update, or drag/zoom on the controls below, which drei's
+  // OrbitControls wires up to invalidate on its own).
+  const needsContinuousFrames = meshSpin > 0 || (interactive && autoRotate && !reducedMotion)
+
   return (
     <Canvas
       shadows={!compact}
       dpr={compact ? [1, 1.5] : [1, 2]}
       gl={{ antialias: true, alpha: true }}
       camera={{ position: [0, 0, CAMERA_Z], fov: FOV_DEG }}
+      frameloop={needsContinuousFrames ? 'always' : 'demand'}
     >
       <Lighting />
 

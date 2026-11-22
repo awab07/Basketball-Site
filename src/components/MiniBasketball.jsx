@@ -14,6 +14,11 @@ const Basketball3D = lazy(() => import('./Basketball3D'))
 // blank gap. `compact` strips shadows/resolution on the 3D view for cheap
 // repeated grid use.
 //
+// `spin={false}` stops the idle tumble (and, via Basketball3D's frameloop
+// check, the continuous per-frame render that comes with it) — the current
+// model is ~200k triangles per ball, and a grid of these spinning at once
+// is what makes scrolling past them janky.
+//
 // `size` must set both a width and a height class (e.g. "h-28 w-28"), not
 // just a width with aspect-square — the Canvas measures its parent's actual
 // box, and leaving the height to be derived can land it a frame before
@@ -36,7 +41,7 @@ function MiniBasketball({ hex, label = '', size = 'h-28 w-28', glow = true }) {
         <Suspense
           fallback={<BasketballPreview panelColor={hex} label={label} className="relative h-full w-full" />}
         >
-          <Basketball3D color={hex} label={label} compact />
+          <Basketball3D color={hex} label={label} compact spin={false} />
         </Suspense>
       ) : (
         <BasketballPreview panelColor={hex} label={label} className="relative h-full w-full" />
