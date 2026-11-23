@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import CartItemRow from '../components/cart/CartItemRow'
-import CheckoutTopBar from '../components/cart/CheckoutTopBar'
-import OrderSummary from '../components/cart/OrderSummary'
-import PaymentMethod from '../components/cart/PaymentMethod'
-import ShippingForm from '../components/cart/ShippingForm'
-import { Button } from '../components/ui/button'
-import { useCart } from '../hooks/useCart'
+import CartItemRow from '@/features/cart/components/CartItemRow'
+import CheckoutTopBar from '@/features/cart/components/CheckoutTopBar'
+import OrderSummary from '@/features/cart/components/OrderSummary'
+import PaymentMethod from '@/features/cart/components/PaymentMethod'
+import ShippingForm from '@/features/cart/components/ShippingForm'
+import { useCart } from '@/features/cart/hooks/useCart'
+import { Button } from '@/shared/ui/button'
 
 function EmptyCart() {
   return (
