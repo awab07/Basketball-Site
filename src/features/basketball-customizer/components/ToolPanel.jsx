@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BALL_COLORS } from '@/features/basketball-customizer/lib/editorConfig'
+import { BALL_COLORS, BALL_SIZES } from '@/features/basketball-customizer/lib/editorConfig'
 import { Button } from '@/shared/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
@@ -50,6 +50,31 @@ function ColorPanel({ design, actions }) {
         ))}
       </div>
       <ColorInput value={design.color} onChange={actions.setColor} label="Custom color" />
+    </div>
+  )
+}
+
+function SizePanel({ design, actions }) {
+  return (
+    <div className="flex flex-col gap-4">
+      <h3 className="text-sm font-semibold text-white">Ball size</h3>
+      <div className="flex flex-wrap gap-2">
+        {BALL_SIZES.map((s) => (
+          <button
+            key={s.id}
+            type="button"
+            aria-pressed={design.size === s.id}
+            onClick={() => actions.setSize(s.id)}
+            className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
+              design.size === s.id
+                ? 'border-[var(--accent)] bg-[var(--accent)]/15 text-white'
+                : 'border-white/15 text-white/70 hover:border-white/30 hover:text-white'
+            }`}
+          >
+            {s.name}
+          </button>
+        ))}
+      </div>
     </div>
   )
 }
@@ -145,6 +170,8 @@ function ToolPanel({ design, actions }) {
       </CardHeader>
       <CardContent className="flex flex-col gap-6">
         <ColorPanel design={design} actions={actions} />
+        <Separator />
+        <SizePanel design={design} actions={actions} />
         <Separator />
         <TextPanel design={design} actions={actions} />
         <Separator />

@@ -5,7 +5,10 @@ import * as THREE from 'three'
 import { createClipartTexture, createPatternTexture } from './textures'
 
 const MODEL_URL = '/basketball.glb'
-const STAMP_FONT_URL = '/fonts/Anton-Regular.ttf'
+// Arimo, not Arial itself: troika needs an actual font file, and Arial's is
+// Microsoft-licensed, not ours to ship to every site visitor. Arimo is built
+// to be metrically and visually equivalent to Arial under an open license.
+const STAMP_FONT_URL = '/fonts/Arimo-Regular.ttf'
 const MODEL_RADIUS = 0.97
 
 // Four stamps (name, logo, number, clipart) share the one panel shell, so
@@ -217,9 +220,8 @@ function PanelStamp({ text, color }) {
 }
 
 // A single clean wordmark running top-to-bottom down the panel, like a real
-// ball's vertical branding, offset off the front seam onto the panel proper
-// — set in Anton, the bold condensed display face used all over sports
-// jerseys and posters, instead of a faked bold/shadow effect. curveRadius
+// ball's vertical branding, offset off the front seam onto the panel proper.
+// curveRadius
 // bends it along the model's own radius (negative = bulges toward the viewer
 // at the center, receding at the edges, matching a true geodesic on the
 // sphere) so it hugs the surface, and the orientation quaternion both spins

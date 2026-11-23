@@ -7,6 +7,16 @@ export const BALL_COLORS = [
   { name: 'Purple', hex: '#5B21B6' },
 ]
 
+// Scale is each size's official circumference relative to a Size 7's 29.5in,
+// so the 3D preview's radius can track the pick instead of always showing
+// a Size 7 no matter what's about to be added to the cart.
+export const BALL_SIZES = [
+  { id: '7', name: 'Size 7 (Official)', scale: 1 },
+  { id: '6', name: 'Size 6 (Women’s)', scale: 28.5 / 29.5 },
+  { id: '5', name: 'Size 5 (Youth)', scale: 27.5 / 29.5 },
+  { id: '3', name: 'Size 3 (Mini)', scale: 22 / 29.5 },
+]
+
 export const PRICING = {
   base: 25,
   text: 5,
@@ -19,12 +29,17 @@ export const PRICING = {
 export function createDefaultDesign() {
   return {
     color: '#FF5722',
+    size: '7',
     pattern: 'solid',
     text: { value: 'YOUR NAME', color: '#111111', visible: true },
     number: { value: '', color: '#111111', visible: true },
     logo: { dataUrl: null, fileName: '', visible: true },
     clipart: { id: null, color: '#111111', visible: true },
   }
+}
+
+export function describeSize(id) {
+  return BALL_SIZES.find((s) => s.id === id)?.name ?? 'Size 7 (Official)'
 }
 
 export const TEMPLATES = [
