@@ -10,6 +10,13 @@
       href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+
+    <!-- The home page's Hero mounts a 3D ball immediately (no inView gating),
+    so these are on the critical path from first paint — start them
+    downloading now instead of waiting for the JS bundle to resolve down to
+    the useGLTF/Text calls that would otherwise trigger the fetch. -->
+    <link rel="preload" href="/basketball.glb" as="fetch" type="model/gltf-binary" crossorigin="anonymous" />
+    <link rel="preload" href="/fonts/Anton-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
     <title>Build-A-Basketball</title>
   </head>
   <body>
