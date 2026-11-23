@@ -53,6 +53,7 @@ function DesignEditor() {
 
   const actions = {
     setColor: (hex) => setDesign((d) => ({ ...d, color: hex })),
+    setSize: (id) => setDesign((d) => ({ ...d, size: id })),
 
     setTextValue: (value) => setDesign((d) => ({ ...d, text: { ...d.text, value } }), { record: false }),
     setTextColor: (color) => setDesign((d) => ({ ...d, text: { ...d.text, color } })),
@@ -72,7 +73,7 @@ function DesignEditor() {
     const { colorName, label, hasLogo, printSides } = describeDesign(design)
     addToCart(
       {
-        size: '7',
+        size: design.size,
         color: design.color,
         colorName,
         label,

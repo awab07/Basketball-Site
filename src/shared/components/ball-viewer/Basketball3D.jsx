@@ -18,7 +18,6 @@ RectAreaLightUniformsLib.init()
 const CAMERA_Z = 3.3
 const FOV_DEG = 32
 const BALL_RADIUS = 0.78
-const BALL_BOTTOM_Y = -BALL_RADIUS - 0.02
 const MIN_DISTANCE = 2.2
 const MAX_DISTANCE = 5.2
 
@@ -69,6 +68,7 @@ const Basketball3D = forwardRef(function Basketball3D(
     enableRotate = true,
     autoRotate = true,
     initialCameraPosition = null,
+    sizeScale = 1,
     label = '',
     labelColor,
     pattern,
@@ -131,6 +131,8 @@ const Basketball3D = forwardRef(function Basketball3D(
   // changes (a prop update, or drag/zoom on the controls below, which drei's
   // OrbitControls wires up to invalidate on its own).
   const needsContinuousFrames = meshSpin > 0 || (interactive && autoRotate && !reducedMotion)
+  const ballRadius = BALL_RADIUS * sizeScale
+  const ballBottomY = -ballRadius - 0.02
 
   return (
     <Canvas
@@ -145,7 +147,7 @@ const Basketball3D = forwardRef(function Basketball3D(
       <Suspense fallback={null}>
         <BasketballMesh
           color={color}
-          radius={BALL_RADIUS}
+          radius={ballRadius}
           spinSpeed={meshSpin}
           label={label}
           labelColor={labelColor}
@@ -165,7 +167,7 @@ const Basketball3D = forwardRef(function Basketball3D(
       {!compact && (
         // scale is far larger than the frustum so its falloff edge is never visible
         <ContactShadows
-          position={[0, BALL_BOTTOM_Y, 0]}
+          position={[0, ballBottomY, 0]}
           opacity={0.5}
           scale={8}
           blur={3}
