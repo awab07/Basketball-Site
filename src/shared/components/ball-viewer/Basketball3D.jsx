@@ -66,7 +66,9 @@ const Basketball3D = forwardRef(function Basketball3D(
   {
     color = '#ff6b2c',
     interactive = false,
+    enableRotate = true,
     autoRotate = true,
+    initialCameraPosition = null,
     label = '',
     labelColor,
     pattern,
@@ -135,7 +137,7 @@ const Basketball3D = forwardRef(function Basketball3D(
       shadows={!compact}
       dpr={compact ? [1, 1.5] : [1, 2]}
       gl={{ antialias: true, alpha: true }}
-      camera={{ position: [0, 0, CAMERA_Z], fov: FOV_DEG }}
+      camera={{ position: initialCameraPosition ?? [0, 0, CAMERA_Z], fov: FOV_DEG }}
       frameloop={needsContinuousFrames ? 'always' : 'demand'}
     >
       <Lighting />
@@ -178,6 +180,7 @@ const Basketball3D = forwardRef(function Basketball3D(
           ref={controlsRef}
           makeDefault
           enablePan={false}
+          enableRotate={enableRotate}
           enableZoom
           enableDamping
           dampingFactor={0.08}

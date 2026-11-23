@@ -1,5 +1,5 @@
 import { Decal, Text, useGLTF, useTexture } from '@react-three/drei'
-import { useFrame } from '@react-three/fiber'
+import { useFrame, useThree } from '@react-three/fiber'
 import { Suspense, useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { createClipartTexture, createPatternTexture } from './textures'
@@ -117,6 +117,22 @@ function BasketballMesh({
     groupRef.current.rotation.z += velocity.current.z * spinSpeed * delta
   })
 
+  // NAME_PANEL sits at lon -90deg, which is side-on (z=0) from the default
+  // camera — fine when drag/the old view buttons could bring it around, but
+  // with rotation now locked in some viewers it would never be seen. Spin
+  // the group once on mount so that panel lands facing the camera at rest.
+  // A plain mount effect (not a `rotation` JSX prop) so it doesn't fight the
+  // tumble animation's own incremental updates on later re-renders.
+  // Static previews run frameloop="demand", which only repaints when
+  // something calls invalidate() — mutating the ref directly doesn't do
+  // that on its own, so without this the fix would sit applied-but-unseen.
+  const invalidate = useThree((state) => state.invalidate)
+  useEffect(() => {
+    if (!groupRef.current) return
+    groupRef.current.rotation.y = NAME_FACING_OFFSET
+    invalidate()
+  }, [invalidate])
+
   const trimmedLabel = label.trim()
   const trimmedNumber = number.trim()
 
@@ -160,6 +176,8 @@ function BasketballMesh({
 // badge. Placed by latitude/longitude on the ball and oriented with the
 // local east / north / outward axes so it lies flush and reads upright.
 const NAME_PANEL = { lat: THREE.MathUtils.degToRad(70), lon: -Math.PI / 2 }
+// Rotating the group by -NAME_PANEL.lon brings that panel to azimuth 0 (camera-facing).
+const NAME_FACING_OFFSET = -NAME_PANEL.lon
 
 function PanelStamp({ text, color }) {
   const { position, orientation } = useMemo(() => {
@@ -190,7 +208,10 @@ function PanelStamp({ text, color }) {
       color={color}
     >
       {text}
-      <meshStandardMaterial attach="material" roughness={0.7} metalness={0} />
+      {/* troika's own fallback text material is DoubleSide; a bare meshStandardMaterial
+          defaults to FrontSide, which back-face-culls the glyphs to nothing whenever this
+          stamp's curved, quaternion-oriented geometry ends up facing the "wrong" way. */}
+      <meshStandardMaterial attach="material" roughness={0.7} metalness={0} side={THREE.DoubleSide} />
     </Text>
   )
 }
@@ -231,7 +252,7 @@ function BallStamp({ text, color, azimuth }) {
       color={color}
     >
       {text}
-      <meshStandardMaterial attach="material" roughness={0.7} metalness={0} />
+      <meshStandardMaterial attach="material" roughness={0.7} metalness={0} side={THREE.DoubleSide} />
     </Text>
   )
 }
