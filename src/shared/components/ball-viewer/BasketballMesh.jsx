@@ -53,6 +53,11 @@ function BasketballMesh({
 }) {
   const groupRef = useRef(null)
   const { scene } = useGLTF(MODEL_URL)
+  // Static previews run frameloop="demand", which only repaints when
+  // something calls invalidate() — any imperative mutation below (material
+  // colors/maps, the group's rotation) needs to call this itself, since none
+  // of it goes through react-three-fiber's own prop-diffing.
+  const invalidate = useThree((state) => state.invalidate)
 
   // Clone per instance (Hero + Studio both mount this) so each gets its own
   // materials instead of mutating drei's single cached GLTF scene.
@@ -90,8 +95,9 @@ function BasketballMesh({
     const texture = createPatternTexture(pattern, color)
     panelMesh.material.map = texture ?? panelMesh.userData.baseMap ?? null
     panelMesh.material.needsUpdate = true
+    invalidate()
     return () => texture?.dispose()
-  }, [model, color, pattern])
+  }, [model, color, pattern, invalidate])
 
   // Current and target angular velocity (rad/s per axis). The target is
   // re-rolled at random intervals and the current value eases toward it,
@@ -126,10 +132,6 @@ function BasketballMesh({
   // the group once on mount so that panel lands facing the camera at rest.
   // A plain mount effect (not a `rotation` JSX prop) so it doesn't fight the
   // tumble animation's own incremental updates on later re-renders.
-  // Static previews run frameloop="demand", which only repaints when
-  // something calls invalidate() — mutating the ref directly doesn't do
-  // that on its own, so without this the fix would sit applied-but-unseen.
-  const invalidate = useThree((state) => state.invalidate)
   useEffect(() => {
     if (!groupRef.current) return
     groupRef.current.rotation.y = NAME_FACING_OFFSET
