@@ -62,10 +62,10 @@ const STYLES = [
 
 function StyleCard({ style }) {
   return (
-    <Card className="flex h-full flex-col items-center p-8 text-center transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.06]">
+    <Card className="flex h-full flex-col items-center p-8 text-center transition-all duration-300 hover:-translate-y-1 hover:border-[var(--ink)]/20 hover:bg-[var(--ink)]/[0.04]">
       <MiniBasketball hex={style.hex} size="h-32 w-32 sm:h-36 sm:w-36" />
-      <h3 className="mt-6 font-[var(--font-display)] text-xl text-white">{style.name}</h3>
-      <p className="mt-2 mb-7 text-sm leading-relaxed text-white/55">{style.blurb}</p>
+      <h3 className="mt-6 font-[var(--font-display)] text-xl text-[var(--ink)]">{style.name}</h3>
+      <p className="mt-2 mb-7 text-sm leading-relaxed text-[var(--ink)]/60">{style.blurb}</p>
       <Button asChild size="sm" variant="outline" className="mt-auto">
         <Link to={`/design?color=${encodeURIComponent(style.hex)}`}>Select</Link>
       </Button>
@@ -75,7 +75,7 @@ function StyleCard({ style }) {
 
 function ShopBySize() {
   return (
-    <section id="styles" className="bg-[var(--ink)] pt-16 pb-10 text-white">
+    <section id="styles" className="bg-[var(--studio-bg)] pt-16 pb-10 text-[var(--ink)]">
       <div className="mx-auto max-w-[1200px] px-6">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {TRUST_ITEMS.map(({ label, icon: Icon }) => (
@@ -86,16 +86,16 @@ function ShopBySize() {
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--accent)]/12 text-[var(--accent)]">
                 <Icon />
               </span>
-              <span className="text-sm font-medium text-white/80">{label}</span>
+              <span className="text-sm font-medium text-[var(--ink)]/75">{label}</span>
             </Card>
           ))}
         </div>
 
         <div className="mt-14">
-          <h2 className="font-[var(--font-display)] text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+          <h2 className="font-[var(--font-display)] text-2xl font-semibold tracking-tight text-[var(--ink)] sm:text-3xl">
             Shop by size
           </h2>
-          <p className="mt-2 text-sm text-white/55">Pick a base ball to start customizing.</p>
+          <p className="mt-2 text-sm text-[var(--ink)]/60">Pick a base ball to start customizing.</p>
         </div>
 
         <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">

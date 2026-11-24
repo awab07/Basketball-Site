@@ -7,9 +7,6 @@ import { Button } from '@/shared/ui/button'
 const LINKS = [
   { label: 'Design your ball', to: '/design' },
   { label: 'Shop by size', href: '#' },
-  { label: 'Templates', href: '#styles' },
-  { label: 'Team orders', href: '#team-orders' },
-  { label: 'Gifts', href: '#' },
 ]
 
 const mobileList = {
@@ -46,14 +43,14 @@ export function Logomark() {
 
 function AnnouncementBar() {
   return (
-    <div className="w-full border-b border-white/10 bg-[var(--ink)] px-4 py-2 text-center text-[11px] font-medium tracking-wide text-white/75">
+    <div className="w-full border-b border-black/10 bg-[var(--accent)] px-4 py-2 text-center text-[11px] font-medium tracking-wide text-white">
       <span className="hidden sm:inline">
-        Free shipping over $50 <span className="mx-2 text-white/25">·</span> Use code{' '}
-        <span className="font-semibold text-[var(--accent)]">FIRSTBALL</span> for 10% off your first design
+        Free shipping over $50 <span className="mx-2 text-white/50">·</span> Use code{' '}
+        <span className="font-semibold underline decoration-white/60">FIRSTBALL</span> for 10% off your first design
       </span>
       <span className="sm:hidden">
         10% off your first design — code{' '}
-        <span className="font-semibold text-[var(--accent)]">FIRSTBALL</span>
+        <span className="font-semibold underline decoration-white/60">FIRSTBALL</span>
       </span>
     </div>
   )
@@ -109,12 +106,28 @@ function BagIcon(props) {
   )
 }
 
+function SearchBar() {
+  return (
+    <form role="search" className="hidden min-w-0 max-w-[430px] flex-1 lg:flex" onSubmit={(e) => e.preventDefault()}>
+      <label className="relative flex w-full items-center">
+        <SearchIcon className="pointer-events-none absolute left-3.5 text-[var(--ink)]/40" />
+        <input
+          type="search"
+          placeholder="Search colors, sizes"
+          aria-label="Search"
+          className="h-10 w-[400px] rounded-full border border-[var(--ink)]/10 bg-[var(--ink)]/[0.03] pl-9 pr-4 text-sm text-[var(--ink)] placeholder:text-[var(--ink)]/40 outline-none transition-colors duration-200 focus:border-[var(--accent)]/40 focus:bg-white"
+        />
+      </label>
+    </form>
+  )
+}
+
 function UtilityIcons() {
   const { count } = useCart()
 
   return (
     <div className="flex items-center gap-0.5 sm:gap-1">
-      <Button asChild variant="ghost" size="icon" aria-label="Search">
+      <Button asChild variant="ghost" size="icon" aria-label="Search" className="lg:hidden">
         <a href="#">
           <SearchIcon />
         </a>
@@ -143,11 +156,11 @@ function UtilityIcons() {
 
 function NavLink({ href, to, label, onClick, isHovered, onHoverStart, onHoverEnd }) {
   const className =
-    'relative rounded-full px-4 py-2 text-sm font-medium text-white/75 transition-colors duration-200 hover:text-white'
+    'relative rounded-full px-4 py-2 text-sm font-medium text-[var(--ink)]/70 transition-colors duration-200 hover:text-[var(--ink)]'
   const pill = isHovered && (
     <motion.span
       layoutId="nav-hover-pill"
-      className="absolute inset-0 -z-10 rounded-full bg-white/10"
+      className="absolute inset-0 -z-10 rounded-full bg-[var(--ink)]/[0.06]"
       transition={{ type: 'spring', stiffness: 400, damping: 32 }}
     />
   )
@@ -201,14 +214,14 @@ function Navbar() {
         <div
           className={`w-full max-w-[1180px] rounded-2xl border backdrop-blur-xl transition-all duration-300 ${
             scrolled
-              ? 'border-white/[0.12] bg-[var(--ink)]/75 shadow-[0_12px_40px_-12px_rgba(0,0,0,0.65)]'
-              : 'border-white/[0.07] bg-white/[0.035] shadow-[0_8px_30px_-16px_rgba(0,0,0,0.5)]'
+              ? 'border-[var(--ink)]/[0.1] bg-[var(--paper)]/85 shadow-[0_12px_40px_-12px_rgba(28,25,23,0.18)]'
+              : 'border-[var(--ink)]/[0.07] bg-white/60 shadow-[0_8px_30px_-16px_rgba(28,25,23,0.14)]'
           }`}
         >
           <div className="flex items-center justify-between gap-3 px-5 py-3">
             <Link to="/" className="flex shrink-0 items-center gap-2.5">
               <Logomark />
-              <span className="font-[var(--font-display)] text-lg font-medium tracking-tight text-white">
+              <span className="font-[var(--font-display)] text-lg font-medium tracking-tight text-[var(--ink)]">
                 Build-A-Basketball
               </span>
             </Link>
@@ -228,11 +241,13 @@ function Navbar() {
               ))}
             </nav>
 
+            <SearchBar />
+
             <div className="flex shrink-0 items-center gap-1 sm:gap-2">
               <UtilityIcons />
 
               <Button asChild size="sm" className="hidden lg:inline-flex">
-                <Link to="/design">Start Building</Link>
+                <Link to="/design">Customize now</Link>
               </Button>
 
               <button
@@ -244,15 +259,15 @@ function Navbar() {
               >
                 <motion.span
                   animate={open ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-                  className="h-[1.5px] w-5 origin-center bg-white"
+                  className="h-[1.5px] w-5 origin-center bg-[var(--ink)]"
                 />
                 <motion.span
                   animate={open ? { opacity: 0 } : { opacity: 1 }}
-                  className="h-[1.5px] w-5 bg-white"
+                  className="h-[1.5px] w-5 bg-[var(--ink)]"
                 />
                 <motion.span
                   animate={open ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-                  className="h-[1.5px] w-5 origin-center bg-white"
+                  className="h-[1.5px] w-5 origin-center bg-[var(--ink)]"
                 />
               </button>
             </div>
@@ -265,7 +280,7 @@ function Navbar() {
                 animate={{ height: 'auto', opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
                 transition={{ duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
-                className="overflow-hidden border-t border-white/[0.08] lg:hidden"
+                className="overflow-hidden border-t border-[var(--ink)]/[0.08] lg:hidden"
               >
                 <motion.nav
                   variants={mobileList}
@@ -279,7 +294,7 @@ function Navbar() {
                         <Link
                           to={l.to}
                           onClick={() => setOpen(false)}
-                          className="block rounded-lg px-3 py-2.5 text-base font-medium text-white/85 transition-colors hover:bg-white/5 hover:text-white"
+                          className="block rounded-lg px-3 py-2.5 text-base font-medium text-[var(--ink)]/80 transition-colors hover:bg-[var(--ink)]/[0.05] hover:text-[var(--ink)]"
                         >
                           {l.label}
                         </Link>
@@ -287,7 +302,7 @@ function Navbar() {
                         <a
                           href={l.href}
                           onClick={() => setOpen(false)}
-                          className="block rounded-lg px-3 py-2.5 text-base font-medium text-white/85 transition-colors hover:bg-white/5 hover:text-white"
+                          className="block rounded-lg px-3 py-2.5 text-base font-medium text-[var(--ink)]/80 transition-colors hover:bg-[var(--ink)]/[0.05] hover:text-[var(--ink)]"
                         >
                           {l.label}
                         </a>
@@ -297,7 +312,7 @@ function Navbar() {
                   <motion.div variants={mobileItem} className="mt-2">
                     <Button asChild size="lg" className="w-full">
                       <Link to="/design" onClick={() => setOpen(false)}>
-                        Start Building
+                        Customize now
                       </Link>
                     </Button>
                   </motion.div>

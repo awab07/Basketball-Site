@@ -28,19 +28,19 @@ function CheckIcon(props) {
 
 function TeamOrders() {
   return (
-    <section id="team-orders" className="bg-[var(--ink)] py-20 text-white">
+    <section id="team-orders" className="bg-[var(--studio-bg)] py-20 text-[var(--ink)]">
       <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-12 px-6 lg:grid-cols-[1fr_1fr] lg:gap-16">
         <div>
           <p className="mb-4 text-xs font-semibold uppercase tracking-[2.5px] text-[var(--accent)]">
             Bulk and team orders
           </p>
-          <h2 className="font-[var(--font-display)] text-[clamp(28px,3.6vw,38px)] font-semibold leading-[1.1] tracking-tight text-white">
+          <h2 className="font-[var(--font-display)] text-[clamp(28px,3.6vw,38px)] font-semibold leading-[1.1] tracking-tight text-[var(--ink)]">
             Kit out your whole team
           </h2>
 
           <ul className="mt-6 flex flex-col gap-3">
             {PERKS.map((perk) => (
-              <li key={perk} className="flex items-start gap-3 text-sm text-white/70">
+              <li key={perk} className="flex items-start gap-3 text-sm text-[var(--ink)]/70">
                 <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--accent)]/15 text-[var(--accent)]">
                   <CheckIcon />
                 </span>
@@ -66,17 +66,17 @@ function TeamOrders() {
             ))}
           </div>
 
-          <p className="mt-5 text-center text-xs text-white/40">One roster, one matching set</p>
+          <p className="mt-5 text-center text-xs text-[var(--ink)]/45">One roster, one matching set</p>
 
-          <div className="mt-7 overflow-hidden rounded-[14px] border border-white/[0.08]">
+          <div className="mt-7 overflow-hidden rounded-[14px] border border-[var(--ink)]/[0.08]">
             {TIERS.map((tier, i) => (
               <div
                 key={tier.qty}
                 className={`flex items-center justify-between px-4 py-3 text-sm ${
-                  i > 0 ? 'border-t border-white/[0.08]' : ''
+                  i > 0 ? 'border-t border-[var(--ink)]/[0.08]' : ''
                 }`}
               >
-                <span className="font-medium text-white/80">{tier.qty}</span>
+                <span className="font-medium text-[var(--ink)]/75">{tier.qty}</span>
                 <span className="font-semibold text-[var(--accent)]">{tier.off}</span>
               </div>
             ))}

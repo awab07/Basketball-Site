@@ -26,9 +26,9 @@ const fadeUp = {
 function GalleryCard({ item }) {
   return (
     <motion.div variants={fadeUp}>
-      <Card className="flex flex-col items-center p-6 py-8 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.06]">
+      <Card className="flex flex-col items-center p-6 py-8 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--ink)]/20 hover:bg-[var(--ink)]/[0.04]">
         <MiniBasketball hex={item.hex} size="h-20 w-20" />
-        <span className="mt-4 text-xs font-semibold tracking-wide text-white/70">
+        <span className="mt-4 text-xs font-semibold tracking-wide text-[var(--ink)]/70">
           {item.label}
         </span>
       </Card>
@@ -38,7 +38,7 @@ function GalleryCard({ item }) {
 
 function GallerySection() {
   return (
-    <section className="relative overflow-hidden bg-[var(--ink-soft)] py-24 text-white">
+    <section className="relative overflow-hidden bg-[var(--studio-panel)] py-24 text-[var(--ink)]">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
@@ -54,7 +54,7 @@ function GallerySection() {
         className="relative mx-auto max-w-[1200px] px-6"
       >
         <motion.div variants={fadeUp} className="mx-auto mb-14 max-w-[620px] text-center">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[2.5px] text-white/70">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[2.5px] text-[var(--ink)]/65">
             From the community
           </p>
           <h2 className="font-[var(--font-display)] text-[clamp(28px,4vw,42px)] leading-[1.1] tracking-tight">

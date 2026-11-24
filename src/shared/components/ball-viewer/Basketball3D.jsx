@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber'
-import { ContactShadows, OrbitControls } from '@react-three/drei'
+import { OrbitControls } from '@react-three/drei'
 import { forwardRef, Suspense, useImperativeHandle, useRef } from 'react'
 import * as THREE from 'three'
 import { RectAreaLightUniformsLib } from 'three/examples/jsm/lights/RectAreaLightUniformsLib.js'
@@ -132,7 +132,6 @@ const Basketball3D = forwardRef(function Basketball3D(
   // OrbitControls wires up to invalidate on its own).
   const needsContinuousFrames = meshSpin > 0 || (interactive && autoRotate && !reducedMotion)
   const ballRadius = BALL_RADIUS * sizeScale
-  const ballBottomY = -ballRadius - 0.02
 
   return (
     <Canvas
@@ -163,19 +162,6 @@ const Basketball3D = forwardRef(function Basketball3D(
           clipartScale={clipartScale}
         />
       </Suspense>
-
-      {!compact && (
-        // scale is far larger than the frustum so its falloff edge is never visible
-        <ContactShadows
-          position={[0, ballBottomY, 0]}
-          opacity={0.5}
-          scale={8}
-          blur={3}
-          far={1.4}
-          resolution={512}
-          color="#000000"
-        />
-      )}
 
       {interactive && (
         <OrbitControls

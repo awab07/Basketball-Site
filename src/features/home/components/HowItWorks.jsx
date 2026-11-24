@@ -9,13 +9,13 @@ const STEPS = [
 
 function StepCard({ step }) {
   return (
-    <Card className="flex flex-col gap-4 p-6 transition-colors duration-300 hover:border-white/20 hover:bg-white/[0.06]">
+    <Card className="flex flex-col gap-4 p-6 transition-colors duration-300 hover:border-[var(--ink)]/20 hover:bg-[var(--ink)]/[0.04]">
       <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--accent)] text-sm font-bold text-white">
         {step.n}
       </span>
       <div>
-        <h3 className="text-base font-semibold text-white">{step.title}</h3>
-        <p className="mt-1.5 text-sm leading-relaxed text-white/55">{step.text}</p>
+        <h3 className="text-base font-semibold text-[var(--ink)]">{step.title}</h3>
+        <p className="mt-1.5 text-sm leading-relaxed text-[var(--ink)]/60">{step.text}</p>
       </div>
     </Card>
   )
@@ -23,9 +23,9 @@ function StepCard({ step }) {
 
 function HowItWorks() {
   return (
-    <section id="how" className="bg-[var(--ink)] py-20 text-white">
+    <section id="how" className="bg-[var(--studio-bg)] py-20 text-[var(--ink)]">
       <div className="mx-auto max-w-[1200px] px-6">
-        <h2 className="mb-10 font-[var(--font-display)] text-[clamp(26px,3.4vw,34px)] font-semibold tracking-tight text-white">
+        <h2 className="mb-10 font-[var(--font-display)] text-[clamp(26px,3.4vw,34px)] font-semibold tracking-tight text-[var(--ink)]">
           How it works
         </h2>
 

@@ -13,13 +13,13 @@ function Newsletter() {
   }
 
   return (
-    <section className="bg-[var(--ink)] py-20 text-white">
+    <section className="bg-[var(--studio-bg)] py-20 text-[var(--ink)]">
       <div className="mx-auto max-w-[720px] px-6">
-        <div className="rounded-[28px] border border-white/[0.1] bg-white/[0.04] px-6 py-12 text-center sm:px-12">
-          <h2 className="font-[var(--font-display)] text-[clamp(24px,3.2vw,32px)] font-semibold tracking-tight text-white">
+        <div className="rounded-[28px] border border-[var(--ink)]/[0.08] bg-[var(--studio-panel)] px-6 py-12 text-center sm:px-12">
+          <h2 className="font-[var(--font-display)] text-[clamp(24px,3.2vw,32px)] font-semibold tracking-tight text-[var(--ink)]">
             Get <span className="text-[var(--accent)]">10% off</span> your first design
           </h2>
-          <p className="mt-2 text-sm text-white/55">New templates and drops, straight to your inbox.</p>
+          <p className="mt-2 text-sm text-[var(--ink)]/60">New templates and drops, straight to your inbox.</p>
 
           {submitted ? (
             <p className="mt-7 text-sm font-semibold text-[var(--accent)]">

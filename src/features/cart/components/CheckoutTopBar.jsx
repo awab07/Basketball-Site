@@ -18,10 +18,10 @@ function LockIcon(props) {
 
 function CheckoutTopBar({ activeStep = 1 }) {
   return (
-    <header className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-b border-white/[0.08] bg-black/40 px-4 py-3 backdrop-blur-xl sm:px-6">
+    <header className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-b border-[var(--ink)]/[0.08] bg-[var(--studio-panel)]/90 px-4 py-3 backdrop-blur-xl sm:px-6">
       <Link to="/" className="flex shrink-0 items-center gap-2">
         <Logomark />
-        <span className="hidden font-[var(--font-display)] text-sm font-medium text-white sm:inline">
+        <span className="hidden font-[var(--font-display)] text-sm font-medium text-[var(--ink)] sm:inline">
           Build-A-Basketball
         </span>
       </Link>
@@ -31,26 +31,26 @@ function CheckoutTopBar({ activeStep = 1 }) {
           <li key={step.n} className="flex items-center gap-1.5 sm:gap-2.5">
             <span
               className={`flex items-center gap-1.5 text-xs font-semibold sm:text-sm ${
-                step.n === activeStep ? 'text-white' : 'text-white/35'
+                step.n === activeStep ? 'text-[var(--ink)]' : 'text-[var(--ink)]/35'
               }`}
             >
               <span
                 className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] ${
                   step.n === activeStep
                     ? 'bg-[var(--accent)] text-white'
-                    : 'border border-white/20 text-white/40'
+                    : 'border border-[var(--ink)]/20 text-[var(--ink)]/45'
                 }`}
               >
                 {step.n}
               </span>
               <span className="hidden sm:inline">{step.label}</span>
             </span>
-            {i < STEPS.length - 1 && <span aria-hidden className="h-px w-4 bg-white/15 sm:w-8" />}
+            {i < STEPS.length - 1 && <span aria-hidden className="h-px w-4 bg-[var(--ink)]/15 sm:w-8" />}
           </li>
         ))}
       </ol>
 
-      <span className="hidden shrink-0 items-center gap-1.5 text-xs font-medium text-white/50 sm:flex">
+      <span className="hidden shrink-0 items-center gap-1.5 text-xs font-medium text-[var(--ink)]/55 sm:flex">
         <LockIcon />
         Secure checkout
       </span>

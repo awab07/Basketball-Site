@@ -23,16 +23,16 @@ const item = {
 const btnAccent =
   'inline-flex items-center justify-center rounded-full bg-[var(--accent)] px-7 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.03] hover:shadow-[0_0_28px_rgba(255,87,34,0.5)] active:scale-[0.97]'
 const btnOutlineLight =
-  'inline-flex items-center justify-center rounded-full border border-[var(--line-dark)] px-7 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:border-white/50 hover:bg-white/5 active:scale-[0.97]'
+  'inline-flex items-center justify-center rounded-full border border-[var(--line-dark)] px-7 py-3.5 text-sm font-semibold text-[var(--ink)] transition-all duration-200 hover:border-[var(--ink)]/40 hover:bg-[var(--ink)]/[0.05] active:scale-[0.97]'
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden bg-[var(--ink)] pt-44 pb-24 text-white">
+    <section className="relative overflow-hidden bg-[var(--studio-bg)] pt-44 pb-24 text-[var(--ink)]">
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'radial-gradient(45% 55% at 78% 45%, rgba(255,87,34,0.16), transparent 70%), radial-gradient(30% 30% at 15% 85%, rgba(255,255,255,0.04), transparent)',
+            'radial-gradient(45% 55% at 78% 45%, rgba(255,87,34,0.18), transparent 70%), radial-gradient(30% 30% at 15% 85%, rgba(255,87,34,0.07), transparent)',
         }}
       />
       <motion.div
@@ -73,7 +73,7 @@ function Hero() {
           >
             {STEP_ITEMS.map((label, i) => (
               <span key={label} className="flex items-center gap-x-8">
-                <span className={i === 0 ? 'text-white' : 'text-white/70 transition-colors hover:text-white'}>
+                <span className={i === 0 ? 'text-[var(--ink)]' : 'text-[var(--ink)]/65 transition-colors hover:text-[var(--ink)]'}>
                   {label}
                 </span>
                 {i < STEP_ITEMS.length - 1 && (
@@ -100,13 +100,13 @@ function Hero() {
           <Suspense
             fallback={
               <BasketballPreview
-                panelColor="#ff6b2c"
+                panelColor="#d9581f"
                 className="relative w-full max-w-[280px] drop-shadow-[0_30px_60px_rgba(0,0,0,0.5)]"
               />
             }
           >
             <div className="relative h-full w-full">
-              <Basketball3D color="#ff6b2c" />
+              <Basketball3D color="#d9581f" />
             </div>
           </Suspense>
         </motion.div>

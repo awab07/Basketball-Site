@@ -30,19 +30,19 @@ function RedoIcon(props) {
 
 function EditorTopBar({ canUndo, canRedo, onUndo, onRedo, saveStatus, onSave, onShare, total, onQuickAdd }) {
   return (
-    <header className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-b border-white/[0.08] bg-black/40 px-4 py-2.5 backdrop-blur-xl">
+    <header className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-b border-[var(--ink)]/[0.08] bg-[var(--studio-panel)]/90 px-4 py-2.5 backdrop-blur-xl">
       <div className="flex items-center gap-4">
         <Link
           to="/"
-          className="flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+          className="flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-[var(--ink)]/70 transition-colors hover:bg-[var(--ink)]/[0.06] hover:text-[var(--ink)]"
         >
           <BackIcon />
           Back
         </Link>
 
-        <div className="hidden items-center gap-2 border-l border-white/10 pl-4 sm:flex">
+        <div className="hidden items-center gap-2 border-l border-[var(--ink)]/10 pl-4 sm:flex">
           <Logomark />
-          <span className="font-[var(--font-display)] text-sm font-medium text-white">Design studio</span>
+          <span className="font-[var(--font-display)] text-sm font-medium text-[var(--ink)]">Design studio</span>
         </div>
       </div>
 
@@ -67,7 +67,7 @@ function EditorTopBar({ canUndo, canRedo, onUndo, onRedo, saveStatus, onSave, on
         >
           <RedoIcon />
         </Button>
-        <span className="ml-1 hidden text-xs text-white/40 sm:inline">{saveStatus}</span>
+        <span className="ml-1 hidden text-xs text-[var(--ink)]/45 sm:inline">{saveStatus}</span>
       </div>
 
       <div className="flex flex-wrap items-center justify-end gap-1.5 sm:gap-2">

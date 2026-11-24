@@ -35,7 +35,7 @@ function HomePage() {
             It takes less than two minutes to build something only you own.
           </p>
           <Link
-            className="inline-flex items-center justify-center rounded-full bg-[var(--ink)] px-8 py-4 text-sm font-semibold text-white transition hover:bg-black"
+            className="inline-flex items-center justify-center rounded-full bg-[var(--ink)] px-8 py-4 text-sm font-semibold text-white transition hover:bg-[var(--ink-soft)]"
             to="/design"
           >
             Start Customizing

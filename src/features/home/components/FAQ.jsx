@@ -45,15 +45,15 @@ function ChevronIcon({ open }) {
 
 function FaqItem({ item, open, onToggle }) {
   return (
-    <div className="border-b border-white/[0.08] last:border-b-0">
+    <div className="border-b border-[var(--ink)]/[0.08] last:border-b-0">
       <button
         type="button"
         onClick={onToggle}
         aria-expanded={open}
-        className="flex w-full items-center justify-between gap-4 py-5 text-left text-white"
+        className="flex w-full items-center justify-between gap-4 py-5 text-left text-[var(--ink)]"
       >
         <span className="text-[15px] font-medium">{item.q}</span>
-        <span className="text-white/50">
+        <span className="text-[var(--ink)]/50">
           <ChevronIcon open={open} />
         </span>
       </button>
@@ -66,7 +66,7 @@ function FaqItem({ item, open, onToggle }) {
             transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
             className="overflow-hidden"
           >
-            <p className="pr-8 pb-5 text-sm leading-relaxed text-white/55">{item.a}</p>
+            <p className="pr-8 pb-5 text-sm leading-relaxed text-[var(--ink)]/60">{item.a}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -78,14 +78,14 @@ function FAQ() {
   const [openIndex, setOpenIndex] = useState(0)
 
   return (
-    <section className="bg-[var(--ink)] py-20 text-white">
+    <section className="bg-[var(--studio-bg)] py-20 text-[var(--ink)]">
       <div className="mx-auto max-w-[760px] px-6">
-        <h2 className="font-[var(--font-display)] text-[clamp(26px,3.4vw,34px)] font-semibold tracking-tight text-white">
+        <h2 className="font-[var(--font-display)] text-[clamp(26px,3.4vw,34px)] font-semibold tracking-tight text-[var(--ink)]">
           Frequently asked questions
         </h2>
-        <p className="mt-2 text-sm text-white/55">Everything you need to know before you order.</p>
+        <p className="mt-2 text-sm text-[var(--ink)]/60">Everything you need to know before you order.</p>
 
-        <div className="mt-8 rounded-[20px] border border-white/[0.08] bg-white/[0.03] px-6">
+        <div className="mt-8 rounded-[20px] border border-[var(--ink)]/[0.08] bg-[var(--studio-panel)] px-6">
           {FAQS.map((item, i) => (
             <FaqItem
               key={item.q}

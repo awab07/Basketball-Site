@@ -24,19 +24,19 @@ function OrderSummary({ subtotal, shipping, approved, onApprovedChange, onPlaceO
   }
 
   return (
-    <div className="flex flex-col gap-5 rounded-[22px] border border-white/[0.08] bg-white/[0.035] p-6">
-      <h3 className="text-sm font-semibold uppercase tracking-[2px] text-white/90">Order summary</h3>
+    <div className="flex flex-col gap-5 rounded-[22px] border border-[var(--ink)]/[0.08] bg-[var(--studio-panel)] p-6">
+      <h3 className="text-sm font-semibold uppercase tracking-[2px] text-[var(--ink)]/80">Order summary</h3>
 
       <ul className="flex flex-col gap-2 text-sm">
-        <li className="flex items-center justify-between text-white/60">
+        <li className="flex items-center justify-between text-[var(--ink)]/65">
           <span>Subtotal</span>
           <span>${subtotal}</span>
         </li>
-        <li className="flex items-center justify-between text-white/60">
+        <li className="flex items-center justify-between text-[var(--ink)]/65">
           <span>Shipping</span>
           <span>${shipping}</span>
         </li>
-        <li className="flex items-center justify-between text-white/60">
+        <li className="flex items-center justify-between text-[var(--ink)]/65">
           <span>Discount</span>
           <span>{discount ? `− $${discount}` : '− $0'}</span>
         </li>
@@ -62,17 +62,17 @@ function OrderSummary({ subtotal, shipping, approved, onApprovedChange, onPlaceO
         )}
       </div>
 
-      <div className="flex items-center justify-between border-t border-white/10 pt-4 text-base font-semibold text-white">
+      <div className="flex items-center justify-between border-t border-[var(--ink)]/10 pt-4 text-base font-semibold text-[var(--ink)]">
         <span>Total</span>
         <span>${total}</span>
       </div>
 
-      <label className="flex items-start gap-2.5 text-sm text-white/70">
+      <label className="flex items-start gap-2.5 text-sm text-[var(--ink)]/75">
         <input
           type="checkbox"
           checked={approved}
           onChange={(e) => onApprovedChange(e.target.checked)}
-          className="mt-0.5 h-4 w-4 shrink-0 rounded border-white/30 bg-white/5 accent-[var(--accent)]"
+          className="mt-0.5 h-4 w-4 shrink-0 rounded border-[var(--ink)]/30 bg-white accent-[var(--accent)]"
         />
         I have checked and approved my design
       </label>
@@ -81,7 +81,7 @@ function OrderSummary({ subtotal, shipping, approved, onApprovedChange, onPlaceO
         {placed ? 'Order placed ✓' : `Place order · $${total}`}
       </Button>
 
-      <p className="text-center text-xs text-white/35">Secure payment · Free reprint if we get it wrong</p>
+      <p className="text-center text-xs text-[var(--ink)]/40">Secure payment · Free reprint if we get it wrong</p>
     </div>
   )
 }

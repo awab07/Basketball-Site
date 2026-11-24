@@ -32,32 +32,32 @@ function SeeWhatsPossible() {
   const inputId = useId()
 
   return (
-    <section className="bg-[var(--ink)] py-20 text-white">
+    <section className="bg-[var(--studio-bg)] py-20 text-[var(--ink)]">
       <div className="mx-auto max-w-[1200px] px-6">
-        <h2 className="font-[var(--font-display)] text-[clamp(26px,3.4vw,34px)] font-semibold tracking-tight text-white">
+        <h2 className="font-[var(--font-display)] text-[clamp(26px,3.4vw,34px)] font-semibold tracking-tight text-[var(--ink)]">
           See what&apos;s possible
         </h2>
-        <p className="mt-2 text-sm text-white/55">Before / after — drag the slider.</p>
+        <p className="mt-2 text-sm text-[var(--ink)]/60">Before / after — drag the slider.</p>
 
-        <div className="relative mx-auto mt-8 aspect-square w-full max-w-[520px] overflow-hidden rounded-[28px] border border-white/[0.08] bg-black/30 select-none">
+        <div className="relative mx-auto mt-8 aspect-square w-full max-w-[520px] overflow-hidden rounded-[28px] border border-[var(--ink)]/[0.08] bg-[var(--studio-panel)] select-none">
           <BallLayer color={CUSTOM_COLOR} label={CUSTOM_LABEL} />
-          <span className="pointer-events-none absolute bottom-4 right-5 text-[11px] font-semibold uppercase tracking-[1.5px] text-white/50">
+          <span className="pointer-events-none absolute bottom-4 right-5 text-[11px] font-semibold uppercase tracking-[1.5px] text-[var(--ink)]/55">
             Customized ball
           </span>
 
           <BallLayer color={PLAIN_COLOR} label="" clipPercent={pos} />
-          <span className="pointer-events-none absolute bottom-4 left-5 text-[11px] font-semibold uppercase tracking-[1.5px] text-white/50">
+          <span className="pointer-events-none absolute bottom-4 left-5 text-[11px] font-semibold uppercase tracking-[1.5px] text-[var(--ink)]/55">
             Plain ball
           </span>
 
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-y-0 w-[2px] -translate-x-1/2 bg-white/70"
+            className="pointer-events-none absolute inset-y-0 w-[2px] -translate-x-1/2 bg-[var(--ink)]/70"
             style={{ left: `${pos}%` }}
           />
           <div
             aria-hidden
-            className="pointer-events-none absolute top-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-[var(--ink)] text-white shadow-[0_6px_20px_-6px_rgba(0,0,0,0.7)]"
+            className="pointer-events-none absolute top-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--ink)]/20 bg-[var(--ink)] text-white shadow-[0_6px_20px_-6px_rgba(28,25,23,0.4)]"
             style={{ left: `${pos}%` }}
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">

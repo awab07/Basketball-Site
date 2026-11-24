@@ -14,8 +14,8 @@ function CartItemRow({ item, onQtyChange, onRemove }) {
       />
 
       <div className="min-w-0 flex-1">
-        <p className="truncate text-sm font-semibold text-white sm:text-[15px]">{title}</p>
-        <p className="mt-1 text-xs text-white/50">
+        <p className="truncate text-sm font-semibold text-[var(--ink)] sm:text-[15px]">{title}</p>
+        <p className="mt-1 text-xs text-[var(--ink)]/55">
           {item.colorName} · {item.printSides}
         </p>
         <Link
@@ -32,26 +32,26 @@ function CartItemRow({ item, onQtyChange, onRemove }) {
             type="button"
             onClick={() => onQtyChange(item.qty - 1)}
             aria-label="Decrease quantity"
-            className="flex h-7 w-7 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:border-white/30 hover:text-white"
+            className="flex h-7 w-7 items-center justify-center rounded-full border border-[var(--ink)]/15 text-[var(--ink)]/70 transition-colors hover:border-[var(--ink)]/30 hover:text-[var(--ink)]"
           >
             −
           </button>
-          <span className="w-5 text-center text-sm font-semibold text-white">{item.qty}</span>
+          <span className="w-5 text-center text-sm font-semibold text-[var(--ink)]">{item.qty}</span>
           <button
             type="button"
             onClick={() => onQtyChange(item.qty + 1)}
             aria-label="Increase quantity"
-            className="flex h-7 w-7 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:border-white/30 hover:text-white"
+            className="flex h-7 w-7 items-center justify-center rounded-full border border-[var(--ink)]/15 text-[var(--ink)]/70 transition-colors hover:border-[var(--ink)]/30 hover:text-[var(--ink)]"
           >
             +
           </button>
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-sm font-semibold text-white">${item.unitPrice * item.qty}</span>
+          <span className="text-sm font-semibold text-[var(--ink)]">${item.unitPrice * item.qty}</span>
           <button
             type="button"
             onClick={onRemove}
-            className="text-xs font-semibold text-white/40 transition-colors hover:text-white"
+            className="text-xs font-semibold text-[var(--ink)]/45 transition-colors hover:text-[var(--ink)]"
           >
             Remove
           </button>

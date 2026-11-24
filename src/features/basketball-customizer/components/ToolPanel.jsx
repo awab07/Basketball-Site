@@ -7,7 +7,7 @@ import { Separator } from '@/shared/ui/separator'
 
 function ShowHideButton({ visible, onToggle }) {
   return (
-    <button type="button" onClick={onToggle} className="text-xs font-semibold text-white/50 hover:text-white">
+    <button type="button" onClick={onToggle} className="text-xs font-semibold text-[var(--ink)]/55 hover:text-[var(--ink)]">
       {visible ? 'Hide' : 'Show'}
     </button>
   )
@@ -15,13 +15,13 @@ function ShowHideButton({ visible, onToggle }) {
 
 function ColorInput({ value, onChange, label = 'Custom' }) {
   return (
-    <label className="flex items-center gap-3 text-sm text-white/70">
+    <label className="flex items-center gap-3 text-sm text-[var(--ink)]/75">
       {label}
       <input
         type="color"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="h-9 w-14 cursor-pointer rounded-lg border border-white/15 bg-transparent"
+        className="h-9 w-14 cursor-pointer rounded-lg border border-[var(--ink)]/15 bg-transparent"
       />
     </label>
   )
@@ -30,7 +30,7 @@ function ColorInput({ value, onChange, label = 'Custom' }) {
 function ColorPanel({ design, actions }) {
   return (
     <div className="flex flex-col gap-4">
-      <h3 className="text-sm font-semibold text-white">Ball color</h3>
+      <h3 className="text-sm font-semibold text-[var(--ink)]">Ball color</h3>
       <div className="flex flex-wrap gap-3">
         {BALL_COLORS.map((c) => (
           <button
@@ -42,8 +42,8 @@ function ColorPanel({ design, actions }) {
             onClick={() => actions.setColor(c.hex)}
             className={`h-10 w-10 rounded-full border-2 transition-all duration-200 ${
               design.color === c.hex
-                ? 'scale-110 border-white outline outline-2 outline-offset-2 outline-[var(--accent)]'
-                : 'border-white/20 hover:scale-110 hover:border-white/50'
+                ? 'scale-110 border-[var(--ink)] outline outline-2 outline-offset-2 outline-[var(--accent)]'
+                : 'border-[var(--ink)]/20 hover:scale-110 hover:border-[var(--ink)]/45'
             }`}
             style={{ background: c.hex }}
           />
@@ -57,7 +57,7 @@ function ColorPanel({ design, actions }) {
 function SizePanel({ design, actions }) {
   return (
     <div className="flex flex-col gap-4">
-      <h3 className="text-sm font-semibold text-white">Ball size</h3>
+      <h3 className="text-sm font-semibold text-[var(--ink)]">Ball size</h3>
       <div className="flex flex-wrap gap-2">
         {BALL_SIZES.map((s) => (
           <button
@@ -67,8 +67,8 @@ function SizePanel({ design, actions }) {
             onClick={() => actions.setSize(s.id)}
             className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
               design.size === s.id
-                ? 'border-[var(--accent)] bg-[var(--accent)]/15 text-white'
-                : 'border-white/15 text-white/70 hover:border-white/30 hover:text-white'
+                ? 'border-[var(--accent)] bg-[var(--accent)]/15 text-[var(--ink)]'
+                : 'border-[var(--ink)]/15 text-[var(--ink)]/70 hover:border-[var(--ink)]/30 hover:text-[var(--ink)]'
             }`}
           >
             {s.name}
@@ -83,7 +83,7 @@ function TextPanel({ design, actions }) {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-white">Text</h3>
+        <h3 className="text-sm font-semibold text-[var(--ink)]">Text</h3>
         <ShowHideButton visible={design.text.visible} onToggle={actions.toggleTextVisible} />
       </div>
       <Input
@@ -93,7 +93,7 @@ function TextPanel({ design, actions }) {
         onChange={(e) => actions.setTextValue(e.target.value)}
         onBlur={actions.commitTextEdit}
       />
-      <p className="-mt-2 text-xs text-white/40">{design.text.value.length} / 16 characters</p>
+      <p className="-mt-2 text-xs text-[var(--ink)]/45">{design.text.value.length} / 16 characters</p>
       <ColorInput value={design.text.color} onChange={actions.setTextColor} label="Text color" />
     </div>
   )
@@ -112,7 +112,7 @@ function LogoPanel({ design, actions }) {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-white">Upload logo</h3>
+        <h3 className="text-sm font-semibold text-[var(--ink)]">Upload logo</h3>
         <ShowHideButton visible={design.logo.visible} onToggle={actions.toggleLogoVisible} />
       </div>
 
@@ -129,7 +129,7 @@ function LogoPanel({ design, actions }) {
           handleFile(e.dataTransfer.files?.[0])
         }}
         className={`flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed px-4 py-8 text-center transition-colors ${
-          dragOver ? 'border-[var(--accent)] bg-[var(--accent)]/10' : 'border-white/15 hover:border-white/30'
+          dragOver ? 'border-[var(--accent)] bg-[var(--accent)]/10' : 'border-[var(--ink)]/15 hover:border-[var(--ink)]/30'
         }`}
       >
         <input
@@ -139,23 +139,23 @@ function LogoPanel({ design, actions }) {
           className="sr-only"
           onChange={(e) => handleFile(e.target.files?.[0])}
         />
-        <span className="text-sm font-medium text-white/80">Drag and drop or browse</span>
-        <span className="text-xs text-white/40">PNG, JPG, SVG · best under 5MB</span>
+        <span className="text-sm font-medium text-[var(--ink)]/80">Drag and drop or browse</span>
+        <span className="text-xs text-[var(--ink)]/45">PNG, JPG, SVG · best under 5MB</span>
       </label>
 
       {design.logo.dataUrl ? (
-        <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] p-3">
-          <img src={design.logo.dataUrl} alt="" className="h-12 w-12 rounded-lg bg-white/10 object-contain" />
+        <div className="flex items-center gap-3 rounded-xl border border-[var(--ink)]/10 bg-[var(--studio-panel)] p-3">
+          <img src={design.logo.dataUrl} alt="" className="h-12 w-12 rounded-lg bg-[var(--ink)]/10 object-contain" />
           <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-medium text-white">{design.logo.fileName || 'Uploaded logo'}</p>
-            <p className="text-xs text-white/40">Printing on the front-left panel</p>
+            <p className="truncate text-sm font-medium text-[var(--ink)]">{design.logo.fileName || 'Uploaded logo'}</p>
+            <p className="text-xs text-[var(--ink)]/45">Printing on the front-left panel</p>
           </div>
           <Button type="button" variant="ghost" size="sm" onClick={actions.clearLogo}>
             Remove
           </Button>
         </div>
       ) : (
-        <p className="text-xs text-white/40">No logo uploaded yet — it&apos;ll print on the panel once you add one.</p>
+        <p className="text-xs text-[var(--ink)]/45">No logo uploaded yet — it&apos;ll print on the panel once you add one.</p>
       )}
     </div>
   )
@@ -166,7 +166,7 @@ function ToolPanel({ design, actions }) {
     <Card>
       <CardHeader className="flex-col items-start gap-1">
         <CardTitle>Customize</CardTitle>
-        <p className="text-sm font-normal normal-case tracking-normal text-white/50">Choose your options</p>
+        <p className="text-sm font-normal normal-case tracking-normal text-[var(--ink)]/55">Choose your options</p>
       </CardHeader>
       <CardContent className="flex flex-col gap-6">
         <ColorPanel design={design} actions={actions} />

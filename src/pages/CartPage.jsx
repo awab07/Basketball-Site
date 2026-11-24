@@ -11,8 +11,8 @@ import { Button } from '@/shared/ui/button'
 function EmptyCart() {
   return (
     <div className="mx-auto flex max-w-[420px] flex-col items-center gap-4 py-24 text-center">
-      <h2 className="font-[var(--font-display)] text-2xl text-white">Your cart is empty</h2>
-      <p className="text-sm text-white/55">Design a ball and it&apos;ll show up here, ready for checkout.</p>
+      <h2 className="font-[var(--font-display)] text-2xl text-[var(--ink)]">Your cart is empty</h2>
+      <p className="text-sm text-[var(--ink)]/60">Design a ball and it&apos;ll show up here, ready for checkout.</p>
       <Button asChild size="lg">
         <Link to="/design">Start designing</Link>
       </Button>
@@ -50,7 +50,7 @@ function CartPage() {
   const itemCount = items.reduce((n, i) => n + i.qty, 0)
 
   return (
-    <div className="min-h-screen bg-[var(--ink)] text-white">
+    <div className="min-h-screen bg-[var(--studio-bg)] text-[var(--ink)]">
       <CheckoutTopBar activeStep={1} />
 
       <div className="mx-auto max-w-[1180px] px-4 py-10 sm:px-6 lg:px-8">
@@ -76,7 +76,7 @@ function CartPage() {
               </section>
 
               <section>
-                <h2 className="text-sm font-semibold uppercase tracking-[2px] text-white/90">
+                <h2 className="text-sm font-semibold uppercase tracking-[2px] text-[var(--ink)]/80">
                   Shipping details
                 </h2>
                 <div className="mt-4">
@@ -85,7 +85,7 @@ function CartPage() {
               </section>
 
               <section>
-                <h2 className="text-sm font-semibold uppercase tracking-[2px] text-white/90">
+                <h2 className="text-sm font-semibold uppercase tracking-[2px] text-[var(--ink)]/80">
                   Payment method
                 </h2>
                 <div className="mt-4">

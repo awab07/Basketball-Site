@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useRef } from 'react'
 import { BALL_SIZES } from '@/features/basketball-customizer/lib/editorConfig'
 import BasketballPreview from '@/shared/components/ball-viewer/BasketballPreview'
 
@@ -12,12 +12,22 @@ const PREVIEW_CAMERA_ELEVATION = 0.7
 const PREVIEW_CAMERA_DISTANCE = 3.3
 const PREVIEW_CAMERA_POSITION = [0, PREVIEW_CAMERA_ELEVATION * PREVIEW_CAMERA_DISTANCE, PREVIEW_CAMERA_DISTANCE]
 
+// Matches Basketball3D's own VIEW_PRESETS keys, so these just forward into its
+// imperative setView() rather than keeping a second copy of the angles here.
+const VIEW_OPTIONS = [
+  { id: 'front', label: 'Front' },
+  { id: 'right', label: 'Side' },
+  { id: 'back', label: 'Back' },
+  { id: 'iso', label: 'Angle' },
+]
+
 function Viewer({ design }) {
   const sizeScale = BALL_SIZES.find((s) => s.id === design.size)?.scale ?? 1
+  const ballRef = useRef(null)
 
   return (
-    <div className="relative flex min-w-0 flex-col items-center justify-center rounded-[22px] border border-white/[0.08] bg-black/20 p-4 sm:p-6 lg:p-10">
-      <h3 className="mb-4 self-start text-sm font-semibold uppercase tracking-[2px] text-white/90">3D Preview</h3>
+    <div className="relative flex min-w-0 flex-col items-center justify-center rounded-[22px] border border-[var(--ink)]/[0.08] bg-[var(--studio-panel)] p-4 sm:p-6 lg:p-10">
+      <h3 className="mb-4 self-start text-sm font-semibold uppercase tracking-[2px] text-[var(--ink)]/75">3D Preview</h3>
       <div className="relative aspect-square w-full max-w-[360px] sm:max-w-[460px] lg:max-w-[560px]">
         <Suspense
           fallback={
@@ -29,6 +39,7 @@ function Viewer({ design }) {
           }
         >
           <Basketball3D
+            ref={ballRef}
             color={design.color}
             pattern={design.pattern}
             label={design.text.visible ? design.text.value : ''}
@@ -45,6 +56,26 @@ function Viewer({ design }) {
             sizeScale={sizeScale}
           />
         </Suspense>
+      </div>
+
+      <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
+        {VIEW_OPTIONS.map((v) => (
+          <button
+            key={v.id}
+            type="button"
+            onClick={() => ballRef.current?.setView(v.id)}
+            className="rounded-full border border-[var(--ink)]/15 px-4 py-2 text-sm font-medium text-[var(--ink)]/70 transition-colors hover:border-[var(--ink)]/30 hover:text-[var(--ink)]"
+          >
+            {v.label}
+          </button>
+        ))}
+        <button
+          type="button"
+          onClick={() => ballRef.current?.reset()}
+          className="rounded-full border border-[var(--ink)]/15 px-4 py-2 text-sm font-medium text-[var(--ink)]/70 transition-colors hover:border-[var(--accent)]/40 hover:text-[var(--accent)]"
+        >
+          Reset
+        </button>
       </div>
     </div>
   )

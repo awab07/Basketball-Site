@@ -53,7 +53,7 @@ function BasketballStudio({ color, colorName, name = '' }) {
   const ballRef = useRef(null)
 
   return (
-    <div className="relative flex flex-col items-center justify-center overflow-hidden rounded-[22px] border border-white/[0.08] bg-black/40 px-6 py-10 sm:px-10 sm:py-12">
+    <div className="relative flex flex-col items-center justify-center overflow-hidden rounded-[22px] border border-[var(--ink)]/[0.08] bg-[var(--studio-panel)] px-6 py-10 sm:px-10 sm:py-12">
       <div
         aria-hidden
         className="pointer-events-none absolute h-[60%] w-[60%] rounded-full blur-3xl transition-colors duration-500"
@@ -67,7 +67,7 @@ function BasketballStudio({ color, colorName, name = '' }) {
 
       <Badge variant="accent" className="absolute right-5 top-5 max-w-[46%]">
         <span
-          className="h-2.5 w-2.5 shrink-0 rounded-full border border-white/40"
+          className="h-2.5 w-2.5 shrink-0 rounded-full border border-[var(--ink)]/30"
           style={{ background: color }}
         />
         <span className="truncate">{colorName}</span>
@@ -88,7 +88,7 @@ function BasketballStudio({ color, colorName, name = '' }) {
       </div>
 
       <TooltipProvider delayDuration={200}>
-        <div className="relative mt-2 flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] p-1.5 backdrop-blur-md">
+        <div className="relative mt-2 flex items-center gap-1.5 rounded-full border border-[var(--ink)]/10 bg-white/70 p-1.5 backdrop-blur-md">
           <ToolButton label="Zoom out" onClick={() => ballRef.current?.zoom(1.2)}>
             <ZoomOutIcon />
           </ToolButton>
@@ -101,7 +101,7 @@ function BasketballStudio({ color, colorName, name = '' }) {
         </div>
       </TooltipProvider>
 
-      <p className="relative mt-3 text-center text-[11px] text-white/35">
+      <p className="relative mt-3 text-center text-[11px] text-[var(--ink)]/40">
         Drag to rotate · Scroll to zoom
       </p>
     </div>

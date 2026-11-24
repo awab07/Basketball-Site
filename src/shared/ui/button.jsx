@@ -10,8 +10,8 @@ const buttonVariants = cva(
         default:
           'bg-[var(--accent)] text-white hover:scale-[1.02] hover:shadow-[0_0_28px_rgba(255,87,34,0.5)]',
         outline:
-          'border border-white/15 bg-white/5 text-white hover:border-white/30 hover:bg-white/10',
-        ghost: 'text-white/70 hover:bg-white/10 hover:text-white',
+          'border border-[var(--ink)]/15 bg-[var(--ink)]/[0.03] text-[var(--ink)] hover:border-[var(--ink)]/30 hover:bg-[var(--ink)]/[0.06]',
+        ghost: 'text-[var(--ink)]/70 hover:bg-[var(--ink)]/[0.06] hover:text-[var(--ink)]',
       },
       size: {
         default: 'h-11 px-6 py-2.5',

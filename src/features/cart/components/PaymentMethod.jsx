@@ -19,11 +19,11 @@ function PaymentMethod({ method, onSelect, card, onCardChange }) {
             className={`rounded-xl border px-4 py-3 text-left transition-colors ${
               method === m.id
                 ? 'border-[var(--accent)] bg-[var(--accent)]/10'
-                : 'border-white/10 hover:border-white/25'
+                : 'border-[var(--ink)]/10 hover:border-[var(--ink)]/25'
             }`}
           >
-            <span className="block text-sm font-semibold text-white">{m.label}</span>
-            <span className={`text-xs ${method === m.id ? 'text-[var(--accent)]' : 'text-white/40'}`}>
+            <span className="block text-sm font-semibold text-[var(--ink)]">{m.label}</span>
+            <span className={`text-xs ${method === m.id ? 'text-[var(--accent)]' : 'text-[var(--ink)]/45'}`}>
               {method === m.id ? 'Selected' : 'Select'}
             </span>
           </button>
@@ -31,7 +31,7 @@ function PaymentMethod({ method, onSelect, card, onCardChange }) {
       </div>
 
       {method === 'card' && (
-        <div className="grid grid-cols-1 gap-3 rounded-xl border border-dashed border-white/15 p-4 sm:grid-cols-[1.4fr_1fr_1fr]">
+        <div className="grid grid-cols-1 gap-3 rounded-xl border border-dashed border-[var(--ink)]/15 p-4 sm:grid-cols-[1.4fr_1fr_1fr]">
           <Input
             placeholder="Card number"
             aria-label="Card number"

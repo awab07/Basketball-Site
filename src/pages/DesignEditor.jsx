@@ -109,7 +109,7 @@ function DesignEditor() {
   }
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-[var(--ink)] text-white">
+    <div className="flex h-screen flex-col overflow-hidden bg-[var(--studio-bg)] text-[var(--ink)]">
       <EditorTopBar
         canUndo={canUndo}
         canRedo={canRedo}

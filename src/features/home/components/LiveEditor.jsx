@@ -49,7 +49,7 @@ function LiveEditor() {
   const nameId = useId()
 
   return (
-    <section id="editor" className="relative overflow-hidden bg-[var(--ink)] py-24 text-white">
+    <section id="editor" className="relative overflow-hidden bg-[var(--studio-bg)] py-24 text-[var(--ink)]">
       <motion.div
         initial="hidden"
         whileInView="show"
@@ -64,7 +64,7 @@ function LiveEditor() {
           <h2 className="font-[var(--font-display)] text-[clamp(30px,4.2vw,46px)] leading-[1.08] tracking-tight">
             Make It <span className="text-[var(--accent)]">Yours.</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-[46ch] text-base leading-relaxed text-white/60">
+          <p className="mx-auto mt-4 max-w-[46ch] text-base leading-relaxed text-[var(--ink)]/65">
             Your basketball. Your colors. Your identity. Customize every
             detail and watch your creation come to life in real time.
           </p>
@@ -72,7 +72,7 @@ function LiveEditor() {
 
         <motion.div
           variants={fadeUp}
-          className="grid grid-cols-1 gap-6 rounded-[28px] border border-white/[0.12] bg-white/[0.045] p-4 shadow-[0_40px_100px_-40px_rgba(0,0,0,0.6)] backdrop-blur-xl sm:p-6 lg:grid-cols-[1fr_1fr] lg:gap-8 lg:p-8"
+          className="grid grid-cols-1 gap-6 rounded-[28px] border border-[var(--ink)]/[0.1] bg-[var(--studio-panel)]/85 p-4 shadow-[0_40px_100px_-40px_rgba(28,25,23,0.18)] backdrop-blur-xl sm:p-6 lg:grid-cols-[1fr_1fr] lg:gap-8 lg:p-8"
         >
           <BasketballStudio color={color.hex} colorName={color.name} name={name} />
 
@@ -94,14 +94,14 @@ function LiveEditor() {
                       aria-pressed={color.hex === c.hex}
                       className={`h-11 w-11 cursor-pointer rounded-full border-2 transition-all duration-200 ${
                         color.hex === c.hex
-                          ? 'scale-110 border-white outline outline-2 outline-offset-2 outline-[var(--accent)]'
-                          : 'border-white/20 hover:scale-110 hover:border-white/50'
+                          ? 'scale-110 border-[var(--ink)] outline outline-2 outline-offset-2 outline-[var(--accent)]'
+                          : 'border-[var(--ink)]/20 hover:scale-110 hover:border-[var(--ink)]/45'
                       }`}
                       style={{ background: c.hex }}
                     />
                   ))}
                 </div>
-                <p className="mt-3 text-sm font-semibold text-white">{color.name}</p>
+                <p className="mt-3 text-sm font-semibold text-[var(--ink)]">{color.name}</p>
               </CardContent>
             </Card>
 
@@ -120,7 +120,7 @@ function LiveEditor() {
                   placeholder="e.g. BUCKETS"
                   aria-describedby={`${nameId}-count`}
                 />
-                <p id={`${nameId}-count`} className="mt-2 text-xs text-white/40">
+                <p id={`${nameId}-count`} className="mt-2 text-xs text-[var(--ink)]/45">
                   {name.length} of {NAME_LIMIT} characters
                 </p>
               </CardContent>
