@@ -6,9 +6,6 @@ const COLUMNS = [
     heading: 'Shop',
     links: [
       { label: 'Design your ball', to: '/design' },
-      { label: 'Templates', href: '#styles' },
-      { label: 'Team orders', href: '#team-orders' },
-      { label: 'Gift cards', href: '#' },
     ],
   },
   {

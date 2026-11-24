@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useCart } from '@/features/cart/hooks/useCart'
 import EditorTopBar from '@/features/basketball-customizer/components/EditorTopBar'
 import RightPanel from '@/features/basketball-customizer/components/RightPanel'
@@ -27,6 +27,7 @@ function loadInitialDesign(colorOverride) {
 
 function DesignEditor() {
   const { addToCart } = useCart()
+  const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const { state: design, setState: setDesign, commit, undo, redo, canUndo, canRedo } = useHistoryState(() =>
     loadInitialDesign(searchParams.get('color')),
@@ -84,7 +85,7 @@ function DesignEditor() {
       qty,
     )
     setAddedFlash(true)
-    setTimeout(() => setAddedFlash(false), 1600)
+    setTimeout(() => navigate('/cart'), 400)
   }
 
   function handleSaveClick() {

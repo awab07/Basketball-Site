@@ -7,7 +7,6 @@ import LiveEditor from '@/features/home/components/LiveEditor'
 import Newsletter from '@/features/home/components/Newsletter'
 import SeeWhatsPossible from '@/features/home/components/SeeWhatsPossible'
 import ShopBySize from '@/features/home/components/ShopBySize'
-import TeamOrders from '@/features/home/components/TeamOrders'
 import Footer from '@/shared/components/layout/Footer'
 import Navbar from '@/shared/components/layout/Navbar'
 
@@ -21,7 +20,6 @@ function HomePage() {
 
       <LiveEditor />
       <SeeWhatsPossible />
-      <TeamOrders />
 
       <GallerySection />
 
