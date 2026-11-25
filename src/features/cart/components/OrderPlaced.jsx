@@ -8,10 +8,18 @@ const Basketball3D = lazy(() => import('@/shared/components/ball-viewer/Basketba
 
 // Matches the design editor's Viewer framing: tilted down so the name/badge
 // panel near the top of the ball reads straight-on instead of foreshortened
-// at the rim, and held still (no idle tumble) for a clean, static shot.
-const PREVIEW_CAMERA_ELEVATION = 20
+// at the rim, and held still (no idle tumble) for a clean, static shot. The
+// camera orbits at a fixed distance as this angle grows, so a steeper tilt
+// rotates the view instead of also pushing the camera away and shrinking
+// the ball on screen.
+const PREVIEW_CAMERA_ANGLE_DEG = 60
 const PREVIEW_CAMERA_DISTANCE = 3.3
-const PREVIEW_CAMERA_POSITION = [0, PREVIEW_CAMERA_ELEVATION * PREVIEW_CAMERA_DISTANCE, PREVIEW_CAMERA_DISTANCE]
+const PREVIEW_CAMERA_ANGLE_RAD = (PREVIEW_CAMERA_ANGLE_DEG * Math.PI) / 180
+const PREVIEW_CAMERA_POSITION = [
+  0,
+  Math.sin(PREVIEW_CAMERA_ANGLE_RAD) * PREVIEW_CAMERA_DISTANCE,
+  Math.cos(PREVIEW_CAMERA_ANGLE_RAD) * PREVIEW_CAMERA_DISTANCE,
+]
 
 const STEPS = ['Placed', 'Printing', 'Shipped', 'Delivered']
 
