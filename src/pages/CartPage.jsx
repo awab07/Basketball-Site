@@ -2,11 +2,16 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import CartItemRow from '@/features/cart/components/CartItemRow'
 import CheckoutTopBar from '@/features/cart/components/CheckoutTopBar'
+import OrderPlaced from '@/features/cart/components/OrderPlaced'
 import OrderSummary from '@/features/cart/components/OrderSummary'
 import PaymentMethod from '@/features/cart/components/PaymentMethod'
 import ShippingForm from '@/features/cart/components/ShippingForm'
 import { useCart } from '@/features/cart/hooks/useCart'
 import { Button } from '@/shared/ui/button'
+
+function generateOrderNumber() {
+  return `BB-${Math.floor(10000 + Math.random() * 90000)}`
+}
 
 function EmptyCart() {
   return (
@@ -32,7 +37,7 @@ function CartPage() {
   const [method, setMethod] = useState('card')
   const [card, setCard] = useState({ number: '', expiry: '', cvc: '' })
   const [approved, setApproved] = useState(false)
-  const [placed, setPlaced] = useState(false)
+  const [order, setOrder] = useState(null)
 
   function handleShippingChange(key, value) {
     setShippingValues((v) => ({ ...v, [key]: value }))
@@ -42,19 +47,30 @@ function CartPage() {
     setCard((c) => ({ ...c, [key]: value }))
   }
 
-  function handlePlaceOrder() {
+  function handlePlaceOrder(total) {
     if (!approved) return
-    setPlaced(true)
+    setOrder({ number: generateOrderNumber(), total })
   }
 
   const itemCount = items.reduce((n, i) => n + i.qty, 0)
 
   return (
     <div className="min-h-screen bg-[var(--studio-bg)] text-[var(--ink)]">
-      <CheckoutTopBar activeStep={1} />
+      {!order && <CheckoutTopBar activeStep={1} />}
 
       <div className="mx-auto max-w-[1180px] px-4 py-10 sm:px-6 lg:px-8">
-        {items.length === 0 ? (
+        {order ? (
+          <OrderPlaced
+            orderNumber={order.number}
+            items={items}
+            itemCount={itemCount}
+            subtotal={subtotal}
+            shipping={shipping}
+            total={order.total}
+            shipTo={shippingValues}
+            onTrackOrder={() => {}}
+          />
+        ) : items.length === 0 ? (
           <EmptyCart />
         ) : (
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.6fr_1fr] lg:items-start">
@@ -101,7 +117,6 @@ function CartPage() {
                 approved={approved}
                 onApprovedChange={setApproved}
                 onPlaceOrder={handlePlaceOrder}
-                placed={placed}
               />
             </div>
           </div>

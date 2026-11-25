@@ -5,7 +5,7 @@ import { Input } from '@/shared/ui/input'
 const PROMO_CODE = 'FIRSTBALL'
 const PROMO_RATE = 0.1
 
-function OrderSummary({ subtotal, shipping, approved, onApprovedChange, onPlaceOrder, placed }) {
+function OrderSummary({ subtotal, shipping, approved, onApprovedChange, onPlaceOrder }) {
   const [promo, setPromo] = useState('')
   const [discountRate, setDiscountRate] = useState(0)
   const [promoMessage, setPromoMessage] = useState('')
@@ -77,8 +77,8 @@ function OrderSummary({ subtotal, shipping, approved, onApprovedChange, onPlaceO
         I have checked and approved my design
       </label>
 
-      <Button type="button" size="lg" className="w-full" disabled={!approved} onClick={onPlaceOrder}>
-        {placed ? 'Order placed ✓' : `Place order · $${total}`}
+      <Button type="button" size="lg" className="w-full" disabled={!approved} onClick={() => onPlaceOrder(total)}>
+        Place order · ${total}
       </Button>
 
       <p className="text-center text-xs text-[var(--ink)]/40">Secure payment · Free reprint if we get it wrong</p>

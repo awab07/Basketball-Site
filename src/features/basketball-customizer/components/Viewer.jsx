@@ -8,7 +8,7 @@ const Basketball3D = lazy(() => import('@/shared/components/ball-viewer/Basketba
 // the ball) needs the camera tilted down at it from the start — straight-on
 // (elevation 0) leaves it foreshortened right at the rim of the sphere.
 // Same distance as the plain default, just raised to look down a bit.
-const PREVIEW_CAMERA_ELEVATION = 0.7
+const PREVIEW_CAMERA_ELEVATION = 1.3
 const PREVIEW_CAMERA_DISTANCE = 3.3
 const PREVIEW_CAMERA_POSITION = [0, PREVIEW_CAMERA_ELEVATION * PREVIEW_CAMERA_DISTANCE, PREVIEW_CAMERA_DISTANCE]
 
