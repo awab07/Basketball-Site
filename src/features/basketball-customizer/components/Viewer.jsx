@@ -6,11 +6,19 @@ const Basketball3D = lazy(() => import('@/shared/components/ball-viewer/Basketba
 
 // Rotation is locked here, so the name panel (placed high, near the top of
 // the ball) needs the camera tilted down at it from the start — straight-on
-// (elevation 0) leaves it foreshortened right at the rim of the sphere.
-// Same distance as the plain default, just raised to look down a bit.
-const PREVIEW_CAMERA_ELEVATION = 1.3
+// (angle 0) leaves it foreshortened right at the rim of the sphere. The
+// camera orbits at a fixed distance from the ball as this angle increases,
+// so a steeper tilt rotates the view instead of also pushing the camera
+// away (which is what scaling the old y-only offset unboundedly did —
+// raising it kept barely changing the angle while shrinking the ball).
+const PREVIEW_CAMERA_ANGLE_DEG = 85
 const PREVIEW_CAMERA_DISTANCE = 3.3
-const PREVIEW_CAMERA_POSITION = [0, PREVIEW_CAMERA_ELEVATION * PREVIEW_CAMERA_DISTANCE, PREVIEW_CAMERA_DISTANCE]
+const PREVIEW_CAMERA_ANGLE_RAD = (PREVIEW_CAMERA_ANGLE_DEG * Math.PI) / 180
+const PREVIEW_CAMERA_POSITION = [
+  0,
+  Math.sin(PREVIEW_CAMERA_ANGLE_RAD) * PREVIEW_CAMERA_DISTANCE,
+  Math.cos(PREVIEW_CAMERA_ANGLE_RAD) * PREVIEW_CAMERA_DISTANCE,
+]
 
 // Matches Basketball3D's own VIEW_PRESETS keys, so these just forward into its
 // imperative setView() rather than keeping a second copy of the angles here.
